@@ -1,7 +1,7 @@
 ﻿/**
  * @name Hello World
  * @author 8Bit
- * @version 1.0.0
+ * @version 1.0.1
  * @description A theme inspired by the iconic Artemis II "Hello World" photograph — Earth glowing in moonlight from lunar distance, auroras crowning the poles. Upbeat greens and blues with Fredoka for a cosmic, feel-good vibe.
  */
 
@@ -25,7 +25,7 @@
 
   --background-image: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/8Bit%20Themes/Hello%20World/art002e000192.png");
 
-  --background-position: center;
+  --background-position: center 15%;
   --background-size: cover;
   --background-repeat: no-repeat;
   --background-attachment: fixed;
@@ -40,12 +40,12 @@
   --text-brightness: 1;
 
   --user-popout-image: var(--background-image);
-  --user-popout-position: center;
+  --user-popout-position: center 60%;
   --user-popout-size: cover;
   --user-popout-blur: 5px;
   --user-popout-brightness: 0.4;
   --user-modal-image: var(--background-image);
-  --user-modal-position: center;
+  --user-modal-position: center 60%;
   --user-modal-size: cover;
   --user-modal-blur: 4px;
   --user-modal-brightness: 0.45;

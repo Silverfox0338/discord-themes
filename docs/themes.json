@@ -1,0 +1,189 @@
+{
+  "generated": "2026-04-19T15:03:25.7038617-04:00",
+  "authors": {
+    "8Bit": {
+      "github": "8-bitStudio",
+      "githubId": 256004323,
+      "folder": "8Bit Themes",
+      "profile": null,
+      "trusted": true
+    },
+    "Silverfox0338": {
+      "github": "Silverfox0338",
+      "githubId": 244269159,
+      "folder": "Silver Themes",
+      "profile": "https://github.com/Silverfox0338/discord-themes/blob/main/Silver%20Themes/AUTHOR.md",
+      "trusted": true
+    },
+    "Stone": {
+      "github": "TheStoneGamingMode",
+      "githubId": 152815009,
+      "folder": "Stone Themes",
+      "profile": null,
+      "trusted": true
+    },
+    "Korone": {
+      "github": "FxckingAngel",
+      "githubId": 70914843,
+      "folder": "Korone Themes",
+      "profile": "https://github.com/Silverfox0338/discord-themes/blob/main/Korone%20Themes/AUTHOR.md",
+      "trusted": true
+    }
+  },
+  "themes": [
+    {
+      "name": "Dr. Stone",
+      "author": "8Bit",
+      "version": "2.0.0",
+      "description": "Dr. Stone-inspired theme with a vibrant oceanic palette, custom fonts, and enhanced visual effects for a refreshing Discord experience.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/8Bit%20Themes/Dr.%20Stone/dr.stone.css"
+    },
+    {
+      "name": "Hello World",
+      "author": "8Bit",
+      "version": "1.0.0",
+      "description": "A theme inspired by the iconic Artemis II \"Hello World\" photograph — Earth glowing in moonlight from lunar distance, auroras crowning the poles. Upbeat greens and blues with Fredoka for a cosmic, feel-good vibe.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/8Bit%20Themes/Hello%20World/Hello%20World.css"
+    },
+    {
+      "name": "Kaguya",
+      "author": "8Bit",
+      "version": "1.0.0",
+      "description": "Ai Hayasaka theme — warm gold, sapphire blue, and sakura pink against a deep night sky. Inspired by Kaguya-sama: Love is War.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/8Bit%20Themes/kaguya/kaguya-ai.css"
+    },
+    {
+      "name": "Anime Adaptive - After Effects Anime Girl [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the After Effects Anime Girl wallpaper and a matching accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-after-effects.css"
+    },
+    {
+      "name": "Anime Adaptive - Azure Blade [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Azure Blade wallpaper and a matching blue accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-azure-blade.css"
+    },
+    {
+      "name": "Anime Adaptive - Bride Furina [Mild NSFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Bride Furina wallpaper and a matching pale violet accent palette. Contains mild NSFW / suggestive imagery.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-bride-furina.css"
+    },
+    {
+      "name": "Anime Adaptive - Cyberpunk Girl Tears [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Cyberpunk Girl Tears wallpaper and a matching dark purple accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-cyberpunk-girl-tears.css"
+    },
+    {
+      "name": "Anime Adaptive - Hoshino Falling [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Hoshino Falling wallpaper and a matching cool gray accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-hoshino-falling.css"
+    },
+    {
+      "name": "Anime Adaptive - Konachan Sample [Mild NSFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Konachan Sample wallpaper and a matching soft mauve accent palette. Contains mild NSFW / suggestive imagery.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-konachan-sample.css"
+    },
+    {
+      "name": "Anime Adaptive - Licensed 4K Template [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Template variant for licensed 4K anime backgrounds. Replace the wallpaper URL and palette values with a licensed JPG or PNG background you are allowed to use.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-licensed-4k-template.css"
+    },
+    {
+      "name": "Anime Adaptive - Lonely Girl Far Away At Night [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Lonely Girl Far Away At Night wallpaper and a matching dusk accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-lonely-girl.css"
+    },
+    {
+      "name": "Anime Adaptive - Mayoi Shigure Hot Spring [Mild NSFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Mayoi Shigure Hot Spring wallpaper and a matching muted plum accent palette. Contains mild NSFW / suggestive imagery.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-mayoi-hot-spring.css"
+    },
+    {
+      "name": "Anime Adaptive - Pastel Gamer Girl [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Pastel Gamer Girl wallpaper and a matching pastel lavender accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-pastel-gamer-girl.css"
+    },
+    {
+      "name": "Anime Adaptive - Shiroko Skyfall [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Shiroko Skyfall wallpaper and a matching steel blue-gray accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-shiroko-skyfall.css"
+    },
+    {
+      "name": "Anime Adaptive - Sora Neon Vending Machine [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Sora Neon Vending Machine wallpaper and a matching neon violet accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-sora-neon.css"
+    },
+    {
+      "name": "Anime Adaptive - Touhou Project [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Touhou Project wallpaper and a matching rosy neutral accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-touhou-project.css"
+    },
+    {
+      "name": "Anime Adaptive - Zima Arknights [SFW]",
+      "author": "Korone",
+      "version": "1.0.0",
+      "description": "Anime Adaptive variant with the Zima Arknights wallpaper and a matching earthy accent palette.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive-zima-arknights.css"
+    },
+    {
+      "name": "Anime Adaptive (GIF wallpapers) [NSFW Optional]",
+      "author": "Korone",
+      "version": "1.3.0",
+      "description": "Base ClearVision anime theme for Anime Adaptive wallpaper variants. Supports GIF presets in this folder and licensed 4K JPG/PNG overrides through variant CSS files.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css"
+    },
+    {
+      "name": "Beastars - Moonlit Wolf",
+      "author": "Silverfox0338",
+      "version": "8.0.7",
+      "description": "Beastars-themed Discord - Moonlit Legoshi",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Silver%20Themes/Legoshi/legoshi-theme.css"
+    },
+    {
+      "name": "Cozy Autumn Morning (SFW)",
+      "author": "Silverfox0338",
+      "version": "1.0.0",
+      "description": "Warm autumn-themed Discord - Cozy Fall Vibes with Jack-o'-Lantern ambiance",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Silver%20Themes/Korone%20Theme/korone-theme.css"
+    },
+    {
+      "name": "Tokyo Ghoul",
+      "author": "Silverfox0338",
+      "version": "2.3.1",
+      "description": "Tokyo Ghoul-inspired theme with a dark, moody aesthetic, custom fonts, and enhanced visual effects for an immersive Discord experience.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Silver%20Themes/B%27s%20Theme/tokyoghoul.css"
+    },
+    {
+      "name": "Cherry Blossom",
+      "author": "Stone",
+      "version": "1.0.0",
+      "description": "A cherry blossom theme for Discord.",
+      "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Stone%20Themes/cherry-blossom.css"
+    }
+  ]
+}

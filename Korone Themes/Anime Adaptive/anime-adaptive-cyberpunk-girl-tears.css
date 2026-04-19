@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Cyberpunk Girl Tears [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Cyberpunk Girl Tears wallpaper and a matching dark purple accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/cyberpunk-girl-tears-moewalls-com.gif");
+  --accent-r: 32;
+  --accent-g: 18;
+  --accent-b: 52;
+  --main-color: #201234;
+  --hover-color: #443854;
+  --text-link: #443854;
+  --channel-color: #1D122E;
+  --muted-color: #5A566F;
+  --deep-surface: #130C21;
+  --accent-glow: rgba(32, 18, 52, 0.38);
+  --background-overlay: rgba(32, 18, 52, 0.32);
+}

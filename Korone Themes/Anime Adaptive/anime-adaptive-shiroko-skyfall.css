@@ -1,0 +1,35 @@
+/**
+ * @name Anime Adaptive - Shiroko Skyfall [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Shiroko Skyfall wallpaper and a matching steel blue-gray accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/shiroko-skyfall-blue-archive-moewalls-com.gif");
+  --accent-r: 117;
+  --accent-g: 122;
+  --accent-b: 134;
+  --main-color: #757A86;
+  --hover-color: #8B8F99;
+  --text-link: #8B8F99;
+  --channel-color: #636771;
+  --muted-color: #888F9C;
+  --deep-surface: #393B46;
+  --accent-glow: rgba(117, 122, 134, 0.38);
+  --background-overlay: rgba(117, 122, 134, 0.32);
+  --background-brightness: 0.77;
+  --background-contrast: 1.08;
+  --background-saturation: 1.06;
+  --transparency: 0.80;
+}
+
+.theme-dark {
+  --background-shading: rgba(20, 22, 30, 0.45);
+  --card-shading: rgba(26, 29, 38, 0.24);
+  --popout-shading: rgba(14, 16, 24, 0.67);
+  --modal-shading: rgba(18, 20, 28, 0.49);
+  --input-shading: rgba(117, 122, 134, 0.18);
+}

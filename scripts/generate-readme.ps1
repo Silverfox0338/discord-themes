@@ -2,6 +2,7 @@ param(
   [string]$OutputPath = "README.md",
   [string]$MetadataPath = "theme-authors.json",
   [string]$PredictPngRawUrl = "",
+  [string]$Folder = "",
   [switch]$NoAuthorPrompt,
   [switch]$Doctor
 )
@@ -188,6 +189,23 @@ function Get-GitHubRawBaseUrl {
   return "https://raw.githubusercontent.com/$owner/$repo/$branch"
 }
 
+function Get-FolderForAuthor {
+  param(
+    [string]$Author,
+    [hashtable]$FolderMap
+  )
+
+  foreach ($folder in $FolderMap.Keys) {
+    $entry    = $FolderMap[$folder]
+    $entryVal = Get-ObjectPropertyValue -Object $entry -Name "author"
+    if (-not [string]::IsNullOrWhiteSpace($entryVal) -and $entryVal.Trim() -eq $Author) {
+      return $folder
+    }
+  }
+
+  return ""
+}
+
 function Get-MainFolder {
   param(
     [string]$RelativePath
@@ -254,7 +272,10 @@ function Get-ThemeCssFiles {
   $filesByPath = @{}
 
   foreach ($root in $searchRoots) {
-    $files = Get-ChildItem -LiteralPath $root -Recurse -File -Filter "*.css"
+    $rootPrefix = [System.IO.Path]::GetFullPath($root).TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
+    $files = Get-ChildItem -LiteralPath $root -Recurse -File -Filter "*.css" | Where-Object {
+      ($_.FullName.Substring($rootPrefix.Length) -split '[/\\]')[0] -ne 'assists'
+    }
     foreach ($file in $files) {
       $fullPath = [System.IO.Path]::GetFullPath($file.FullName)
       if (-not $filesByPath.ContainsKey($fullPath)) {
@@ -773,7 +794,11 @@ $outputFile = if ([System.IO.Path]::IsPathRooted($OutputPath)) {
 } else {
   Join-Path $repoRoot $OutputPath
 }
-$rawBaseUrl = Get-GitHubRawBaseUrl
+$rawBaseUrl  = Get-GitHubRawBaseUrl
+$blobBaseUrl = ""
+if ($rawBaseUrl -match '^https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)$') {
+  $blobBaseUrl = "https://github.com/$($matches[1])/$($matches[2])/blob/$($matches[3])"
+}
 
 if (-not [string]::IsNullOrWhiteSpace($PredictPngRawUrl)) {
   if ([string]::IsNullOrWhiteSpace($rawBaseUrl)) {
@@ -812,6 +837,19 @@ if ($Doctor) {
   $requiredHeaders = @("name", "author", "version", "description")
   $searchRoots = Get-ThemeSearchRoots -RepoRoot $repoRoot -AuthorMetadata $authorMetadata
 
+  # Scope to a specific contributor folder if -Folder was provided
+  if (-not [string]::IsNullOrWhiteSpace($Folder)) {
+    $scopedFolderPath = [System.IO.Path]::GetFullPath((Join-Path $repoRoot $Folder))
+    $cssFiles = @($cssFiles | Where-Object {
+      $_.FullName.StartsWith($scopedFolderPath + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase) -or
+      $_.FullName -eq $scopedFolderPath
+    })
+    $searchRoots = @($searchRoots | Where-Object {
+      $_.StartsWith($scopedFolderPath, [System.StringComparison]::OrdinalIgnoreCase)
+    })
+    Write-Output "Scoped to folder: $Folder"
+  }
+
   if (-not $authorMetadata.IsLoaded) {
     $doctorFailures.Add("Author metadata file is missing or invalid: $($authorMetadata.Path)")
   }
@@ -821,7 +859,7 @@ if ($Doctor) {
   }
 
   if ($cssFiles.Count -eq 0) {
-    $doctorFailures.Add("No CSS files found under theme roots.")
+    $doctorFailures.Add("No CSS files found under theme roots$(if (-not [string]::IsNullOrWhiteSpace($Folder)) { " for folder '$Folder'" }).")
   }
 
   foreach ($file in $cssFiles) {
@@ -868,6 +906,44 @@ if ($Doctor) {
 
   foreach ($folder in $staleFolders) {
     $doctorWarnings.Add("theme-authors.json has stale folder mapping: $folder")
+  }
+
+  # AUTHOR.md check — optional file, but validate it if present
+  $foldersToCheckMd = if (-not [string]::IsNullOrWhiteSpace($Folder)) {
+    @($Folder)
+  } else {
+    @($foldersInCss | Sort-Object -Unique)
+  }
+
+  foreach ($folderName in $foldersToCheckMd) {
+    $folderPath = Join-Path $repoRoot $folderName
+    if (-not (Test-Path -LiteralPath $folderPath -PathType Container)) { continue }
+
+    $authorMdPath = Join-Path $folderPath "AUTHOR.md"
+    if (Test-Path -LiteralPath $authorMdPath) {
+      $mdContent = Get-Content -LiteralPath $authorMdPath -Raw
+      if ([string]::IsNullOrWhiteSpace($mdContent)) {
+        $doctorWarnings.Add("$folderName/AUTHOR.md exists but is empty")
+      } else {
+        $h1Match = [regex]::Match($mdContent, '(?m)^#\s+(.+)$')
+        if (-not $h1Match.Success) {
+          $doctorWarnings.Add("$folderName/AUTHOR.md is missing an H1 heading (e.g. '# Your Name') — this is used as your display name in the README")
+        } else {
+          $h1Text = $h1Match.Groups[1].Value.Trim()
+          if ($h1Text.Length -gt 24) {
+            $doctorWarnings.Add("$folderName/AUTHOR.md H1 heading '$h1Text' is $($h1Text.Length) characters — must be 24 or fewer")
+          }
+        }
+      }
+    }
+
+    # Warn if any .md exists in the folder root with the wrong name
+    $mdFiles = @(Get-ChildItem -LiteralPath $folderPath -File -Filter "*.md" -ErrorAction SilentlyContinue)
+    foreach ($md in $mdFiles) {
+      if ($md.Name -ne "AUTHOR.md") {
+        $doctorWarnings.Add("$folderName/$($md.Name) — markdown files must be named AUTHOR.md")
+      }
+    }
   }
 
   Write-Output "Doctor report"
@@ -985,50 +1061,104 @@ $sortedThemes = $themes | Sort-Object Author, Name
 $authorGroups = $sortedThemes | Group-Object Author
 $fallbackFolders = @($fallbackByFolder.Values | Sort-Object Folder)
 
+# Dynamic counts for the welcome section
+$themeCount       = $sortedThemes.Count
+$contributorCount = @($authorGroups | Where-Object { -not [string]::IsNullOrWhiteSpace($_.Name) -and $_.Name -ne "Unknown" }).Count
+$themeWord        = if ($themeCount -ne 1) { "themes" } else { "theme" }
+$contributorWord  = if ($contributorCount -ne 1) { "contributors" } else { "contributor" }
+
 $readmeLines.Add("# discord-themes")
 $readmeLines.Add("")
+$readmeLines.Add("A community collection of custom Discord themes for BetterDiscord and Vencord — handcrafted by people who actually care about how their Discord looks.")
+$readmeLines.Add("")
+$readmeLines.Add("Currently home to **$themeCount $themeWord** from **$contributorCount $contributorWord**, and always open to more.")
+$readmeLines.Add("")
+$readmeLines.Add("---")
+$readmeLines.Add("")
+$readmeLines.Add("## How it works")
+$readmeLines.Add("")
+$readmeLines.Add("Every theme lives in its own contributor folder. Each contributor owns their folder — they can add, update, or remove their themes freely. Themes are installed via a raw GitHub URL, so you always get the latest version automatically without re-downloading anything.")
+$readmeLines.Add("")
+$readmeLines.Add("Contributors can also include an **AUTHOR.md** in their folder — a short profile page with links to their work, socials, and anything else relevant to their themes. Look for the **Profile** link next to a contributor's name in the Authors section below.")
+$readmeLines.Add("")
+$readmeLines.Add("---")
+$readmeLines.Add("")
+$readmeLines.Add("## Want to add your theme?")
+$readmeLines.Add("")
+$readmeLines.Add("This repo is open to everyone. If you've made a Discord theme and want it listed here, just fork the repo, add your theme, and open a pull request — the bot will validate it automatically and walk you through anything that needs fixing.")
+$readmeLines.Add("")
+$readmeLines.Add("Open a PR and the repo owner will review it. Once you're registered, future PRs auto-merge.")
+$readmeLines.Add("")
+$readmeLines.Add("→ **[Developer & Contributor Guide](https://github.com/Silverfox0338/discord-themes/wiki/Developer-&-Contributor-Guide)** — everything you need to know to submit a theme.")
+$readmeLines.Add("")
+$readmeLines.Add("---")
+$readmeLines.Add("")
 $readmeLines.Add("## Themes")
+$readmeLines.Add("")
+$readmeLines.Add("<details>")
+$readmeLines.Add("<summary>$themeCount $themeWord — click to expand</summary>")
 $readmeLines.Add("")
 $readmeLines.Add("| Theme | Author | Version | Description | Raw URL/Online Theme URL |")
 $readmeLines.Add("| --- | --- | --- | --- | --- |")
 
 foreach ($theme in $sortedThemes) {
-  $themeName = Escape-TableCell -Value $theme.Name
-  $themeAuthor = Escape-TableCell -Value $theme.Author
-  $themeVersion = Escape-TableCell -Value $theme.Version
+  $themeName        = Escape-TableCell -Value $theme.Name
+  $themeAuthor      = Escape-TableCell -Value $theme.Author
+  $themeVersion     = Escape-TableCell -Value $theme.Version
   $themeDescription = Escape-TableCell -Value $theme.Description
-  $rawLink = if ([string]::IsNullOrWhiteSpace($theme.RawUrl)) { "-" } else { "[Raw URL]($($theme.RawUrl))" }
-  $localLink = "[Online Theme URL]($($theme.LinkPath))"
-  $combinedLinks = "$rawLink / $localLink"
+  $rawLink          = if ([string]::IsNullOrWhiteSpace($theme.RawUrl)) { "-" } else { "[Raw URL]($($theme.RawUrl))" }
+  $localLink        = "[Online Theme URL]($($theme.LinkPath))"
+  $combinedLinks    = "$rawLink / $localLink"
 
   $readmeLines.Add("| $themeName | $themeAuthor | $themeVersion | $themeDescription | $combinedLinks |")
 }
 
 $readmeLines.Add("")
+$readmeLines.Add("</details>")
+$readmeLines.Add("")
 $readmeLines.Add("## Authors")
 
 foreach ($group in $authorGroups) {
-  $author = if ([string]::IsNullOrWhiteSpace($group.Name)) { "Unknown" } else { $group.Name }
+  $author       = if ([string]::IsNullOrWhiteSpace($group.Name)) { "Unknown" } else { $group.Name }
+  $groupThemes  = @($group.Group | Sort-Object Name)
+  $themeCount   = $groupThemes.Count
+  $themeWord    = if ($themeCount -ne 1) { "themes" } else { "theme" }
+
+  # Check for AUTHOR.md in this contributor's folder
+  $authorFolder = Get-FolderForAuthor -Author $author -FolderMap $authorMetadata.FolderMap
+  $authorMdLink = ""
+  if (-not [string]::IsNullOrWhiteSpace($authorFolder) -and -not [string]::IsNullOrWhiteSpace($blobBaseUrl)) {
+    $authorMdPath = Join-Path $repoRoot $authorFolder "AUTHOR.md"
+    if (Test-Path -LiteralPath $authorMdPath) {
+      $encodedFolder = Get-LinkPath -RelativePath $authorFolder
+      $authorMdLink  = " · [Profile]($blobBaseUrl/$encodedFolder/AUTHOR.md)"
+    }
+  }
+
   $readmeLines.Add("")
-  $readmeLines.Add("### $author")
+  $readmeLines.Add("### $author$authorMdLink")
+  $readmeLines.Add("")
+  $readmeLines.Add("<details>")
+  $readmeLines.Add("<summary>$themeCount $themeWord</summary>")
   $readmeLines.Add("")
   $readmeLines.Add("| Theme | Version | Description | Raw URL/Online Theme URL |")
   $readmeLines.Add("| --- | --- | --- | --- |")
 
-  $groupThemes = @($group.Group | Sort-Object Name)
   foreach ($theme in $groupThemes) {
-    $themeName = Escape-TableCell -Value $theme.Name
-    $themeVersion = Escape-TableCell -Value $theme.Version
+    $themeName        = Escape-TableCell -Value $theme.Name
+    $themeVersion     = Escape-TableCell -Value $theme.Version
     $themeDescription = Escape-TableCell -Value $theme.Description
-    $rawLink = if ([string]::IsNullOrWhiteSpace($theme.RawUrl)) { "-" } else { "[Raw URL]($($theme.RawUrl))" }
-    $localLink = "[Online Theme URL]($($theme.LinkPath))"
-    $combinedLinks = "$rawLink / $localLink"
+    $rawLink          = if ([string]::IsNullOrWhiteSpace($theme.RawUrl)) { "-" } else { "[Raw URL]($($theme.RawUrl))" }
+    $localLink        = "[Online Theme URL]($($theme.LinkPath))"
+    $combinedLinks    = "$rawLink / $localLink"
 
     $readmeLines.Add("| $themeName | $themeVersion | $themeDescription | $combinedLinks |")
   }
 
   $readmeLines.Add("")
-  $readmeLines.Add("Total themes: $($groupThemes.Count)")
+  $readmeLines.Add("Total themes: $themeCount")
+  $readmeLines.Add("")
+  $readmeLines.Add("</details>")
 }
 
 $readmeLines.Add("")

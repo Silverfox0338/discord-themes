@@ -1,0 +1,44 @@
+name: Theme Suggestion
+description: Got an idea for a new theme or a concept you'd love to see?
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a theme concept in mind? Share it here. Contributors may pick it up, or the repo owner may reach out.
+
+  - type: input
+    id: name
+    attributes:
+      label: Theme Name / Concept
+      placeholder: e.g. Attack on Titan, Cyberpunk, Minimal Dark
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Idea
+      description: What should it look like? Colors, mood, inspiration — the more detail the better.
+      placeholder: e.g. A dark theme inspired by the Survey Corps uniform — greens, browns, and leather textures.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Reference Images or Links
+      description: Any screenshots, artwork, or color palettes that capture the vibe?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Are you willing to make it yourself?
+      options:
+        - "Yes, I'd like to contribute it"
+        - "No, just a suggestion"
+        - "Maybe, I'd need some guidance"
+    validations:
+      required: true

@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Zima Arknights [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Zima Arknights wallpaper and a matching earthy accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/zima-arknights-wallpaperwaifu-com.gif");
+  --accent-r: 85;
+  --accent-g: 74;
+  --accent-b: 76;
+  --main-color: #554A4C;
+  --hover-color: #706769;
+  --text-link: #706769;
+  --channel-color: #494042;
+  --muted-color: #77747D;
+  --deep-surface: #2B262C;
+  --accent-glow: rgba(85, 74, 76, 0.38);
+  --background-overlay: rgba(85, 74, 76, 0.32);
+}

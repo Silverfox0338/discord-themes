@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Sora Neon Vending Machine [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Sora Neon Vending Machine wallpaper and a matching neon violet accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/sora-neon-vending-machine-nikke-moewalls-com.gif");
+  --accent-r: 111;
+  --accent-g: 86;
+  --accent-b: 148;
+  --main-color: #6F5694;
+  --hover-color: #8671A5;
+  --text-link: #8671A5;
+  --channel-color: #5E4A7D;
+  --muted-color: #857BA4;
+  --deep-surface: #362B4C;
+  --accent-glow: rgba(111, 86, 148, 0.38);
+  --background-overlay: rgba(111, 86, 148, 0.32);
+}

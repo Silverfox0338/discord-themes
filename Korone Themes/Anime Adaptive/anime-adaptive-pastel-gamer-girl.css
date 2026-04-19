@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Pastel Gamer Girl [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Pastel Gamer Girl wallpaper and a matching pastel lavender accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/pastel-gamer-girl-moewalls-com.gif");
+  --accent-r: 181;
+  --accent-g: 166;
+  --accent-b: 196;
+  --main-color: #B5A6C4;
+  --hover-color: #C1B4CD;
+  --text-link: #C1B4CD;
+  --channel-color: #988BA4;
+  --muted-color: #ACA7BF;
+  --deep-surface: #564F62;
+  --accent-glow: rgba(181, 166, 196, 0.38);
+  --background-overlay: rgba(181, 166, 196, 0.32);
+}

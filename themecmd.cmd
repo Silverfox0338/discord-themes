@@ -45,9 +45,7 @@ exit /b %errorlevel%
 if "%~2"=="" (
   call :invoke_generate -Doctor
 ) else (
-  set "forwardArgs=%*"
-  set "forwardArgs=%forwardArgs:* =%"
-  call :invoke_generate -Doctor %forwardArgs%
+  call :invoke_generate -Doctor -Folder "%~2"
 )
 exit /b %errorlevel%
 

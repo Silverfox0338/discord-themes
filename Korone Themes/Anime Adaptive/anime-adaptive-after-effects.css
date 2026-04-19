@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - After Effects Anime Girl [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the After Effects Anime Girl wallpaper and a matching accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/after-effects-anime-girl-wallpaperwaifu-com.gif");
+  --accent-r: 55;
+  --accent-g: 58;
+  --accent-b: 82;
+  --main-color: #373A52;
+  --hover-color: #575A6E;
+  --text-link: #575A6E;
+  --channel-color: #303346;
+  --muted-color: #666C80;
+  --deep-surface: #1D1E2F;
+  --accent-glow: rgba(55, 58, 82, 0.38);
+  --background-overlay: rgba(55, 58, 82, 0.32);
+}

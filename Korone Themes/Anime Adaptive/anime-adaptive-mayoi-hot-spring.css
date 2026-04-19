@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Mayoi Shigure Hot Spring [Mild NSFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Mayoi Shigure Hot Spring wallpaper and a matching muted plum accent palette. Contains mild NSFW / suggestive imagery.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/mayoi-shigure-hot-spring-blue-archive-wallpaperwaifu-com.gif");
+  --accent-r: 114;
+  --accent-g: 89;
+  --accent-b: 114;
+  --main-color: #725972;
+  --hover-color: #897489;
+  --text-link: #897489;
+  --channel-color: #614C61;
+  --muted-color: #877D92;
+  --deep-surface: #382C3D;
+  --accent-glow: rgba(114, 89, 114, 0.38);
+  --background-overlay: rgba(114, 89, 114, 0.32);
+}

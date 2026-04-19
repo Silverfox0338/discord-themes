@@ -1,0 +1,15 @@
+name: General / Other
+description: Anything that doesn't fit the other categories.
+labels: ["general"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for questions, feedback, or anything else on your mind.
+
+  - type: textarea
+    id: content
+    attributes:
+      label: What's on your mind?
+    validations:
+      required: true

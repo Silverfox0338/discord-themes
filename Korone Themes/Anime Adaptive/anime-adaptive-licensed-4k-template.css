@@ -1,0 +1,36 @@
+/**
+ * @name Anime Adaptive - Licensed 4K Template [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Template variant for licensed 4K anime backgrounds. Replace the wallpaper URL and palette values with a licensed JPG or PNG background you are allowed to use.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  /*
+   * Replace this with either:
+   * 1. A repo-approved raw GitHub URL for a licensed 4K JPG/PNG asset, or
+   * 2. A local-only file path in your private Vencord/BetterDiscord themes folder.
+   *
+   * Example local-only path after copying this theme folder into your client:
+   * --korone-wallpaper: url("./wallpapers-4k/your-licensed-4k-background.png");
+   */
+  --korone-wallpaper: url("./wallpapers-4k/replace-me-with-a-licensed-4k-background.png");
+
+  /*
+   * Starter palette tuned for cool blue/city/night backgrounds.
+   * Replace these values to match the background you actually use.
+   */
+  --accent-r: 72;
+  --accent-g: 108;
+  --accent-b: 171;
+  --main-color: #486CAB;
+  --hover-color: #6C8BC1;
+  --text-link: #6C8BC1;
+  --channel-color: #3D5A8F;
+  --muted-color: #7F93B9;
+  --deep-surface: #203150;
+  --accent-glow: rgba(72, 108, 171, 0.38);
+  --background-overlay: rgba(72, 108, 171, 0.32);
+}

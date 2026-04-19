@@ -1,0 +1,440 @@
+/**
+ * @name Anime Adaptive (GIF wallpapers) [NSFW Optional]
+ * @author notal
+ * @version 1.3.0
+ * @description Base ClearVision anime theme for Anime Adaptive wallpaper variants. Supports GIF presets in this folder and licensed 4K JPG/PNG overrides through variant CSS files.
+ */
+
+/*
+ * Install (wiki): BetterDiscord / Vencord → Themes → point at this file.
+ * Local setup: keep this .css next to the /wallpapers folder (copy the whole "Anime Adaptive" folder into your client themes directory).
+ *
+ * Switch wallpaper and accents:
+ * 1. Install one of the per-wallpaper variant CSS files in this folder, or
+ * 2. Override --korone-wallpaper and the accent variables in QuickCSS / Custom CSS, or
+ * 3. Use anime-adaptive-licensed-4k-template.css for a licensed 4K JPG/PNG background pack.
+ *
+ * GIFs included (4s loop, ~854px wide): see /wallpapers — originals converted from your MP4/JPG folder.
+ */
+
+@import url("https://clearvision.github.io/ClearVision-v7/main.css");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap");
+
+:root {
+  /* Pick one file from ./wallpapers/ — or set via Sync-AnimeThemeAccent.ps1 */
+  --korone-wallpaper: url("./wallpapers/azure-blade-moewalls-com.gif");
+  --background-image: var(--korone-wallpaper);
+  /* <ANIME_ACCENT_AUTO_START> */
+  --accent-r: 44;
+  --accent-g: 76;
+  --accent-b: 141;
+  --main-color: #3D5A96;
+  --hover-color: #5A73A6;
+  --danger-color: #ED4245;
+  --success-color: #57F287;
+  --warning-color: #FEE75C;
+  --online-color: #57F287;
+  --idle-color: #FEE75C;
+  --dnd-color: #ED4245;
+  --streaming-color: #5A73A6;
+  --offline-color: #80848E;
+  --invisible-color: #80848E;
+  --text-link: #5A73A6;
+  --channel-unread: #F2F5FF;
+  --channel-color: #4D5D88;
+  --channel-text-selected: #FFFFFF;
+  --muted-color: #8E9AB8;
+  --accent-hue: 220;
+  --accent-saturation: 52%;
+  --accent-brightness: 36%;
+  --accent-glow: rgba(44, 76, 141, 0.38);
+  --deep-surface: #1D315C;
+  --background-overlay: rgba(44, 76, 141, 0.32);
+  --background-brightness: 0.68;
+  /* <ANIME_ACCENT_AUTO_END> */
+  --background-shading: 100%;
+  --background-position: center;
+  --background-size: cover;
+  --background-repeat: no-repeat;
+  --background-attachment: fixed;
+  --background-contrast: 1.05;
+  --background-saturation: 1;
+  --background-grayscale: 0%;
+  --background-invert: 0%;
+  --background-blur: 0px;
+  --transparency: 0.82;
+  --text-brightness: 1;
+
+  --user-popout-image: var(--background-image);
+  --user-popout-position: center;
+  --user-popout-size: cover;
+  --user-popout-blur: 5px;
+  --user-popout-brightness: 0.45;
+  --user-modal-image: var(--background-image);
+  --user-modal-position: center;
+  --user-modal-size: cover;
+  --user-modal-blur: 4px;
+  --user-modal-brightness: 0.5;
+
+  --home-icon: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/assets/QCpjMsR.png");
+  --home-position: center;
+  --home-size: 125%;
+
+  --main-font: "Zen Kaku Gothic New", "gg sans", "Noto Sans JP", sans-serif;
+  --code-font: "JetBrains Mono", Consolas, "gg mono", monospace;
+  --font-primary: var(--main-font);
+  --font-display: var(--main-font);
+
+  --pure-white: #F8FAFF;
+  --deep-black: #0E0A12;
+  --mid-gray: var(--channel-color);
+}
+
+* {
+  scroll-behavior: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.35) transparent;
+}
+
+[class*="titleBar-"],
+[class*="windowControls-"],
+[class*="winButton-"],
+[class*="wordmark-"],
+.platform-win [class*="typeWindows-"],
+.platform-osx [class*="typeMacOS-"] {
+  position: relative !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+[class*="leading_"] {
+  visibility: hidden;
+}
+
+.theme-dark {
+  --background-shading: rgba(18, 14, 28, 0.42);
+  --card-shading: rgba(22, 18, 32, 0.18);
+  --popout-shading: rgba(12, 8, 18, 0.64);
+  --modal-shading: rgba(16, 12, 24, 0.38);
+  --input-shading: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18);
+  --text-normal: #DDE2F0;
+  --text-muted: var(--muted-color);
+  --text-link: var(--hover-color);
+  --header-primary: var(--pure-white);
+  --header-secondary: #B4BED4;
+  --interactive-normal: #B8C4DC;
+  --interactive-hover: var(--pure-white);
+  --interactive-active: #FFFFFF;
+  --interactive-muted: #5C6578;
+}
+
+.theme-light {
+  --background-shading: rgba(245, 246, 252, 0.54);
+  --card-shading: rgba(235, 238, 248, 0.34);
+  --popout-shading: rgba(250, 251, 255, 0.78);
+  --modal-shading: rgba(240, 242, 252, 0.58);
+  --input-shading: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.1);
+  --text-normal: #1E2433;
+  --text-muted: #4A5568;
+  --header-primary: #0E1118;
+  --header-secondary: #3D4656;
+}
+
+.theme-darker {
+  --background-shading: rgba(10, 8, 16, 0.52);
+  --card-shading: rgba(14, 12, 20, 0.28);
+  --popout-shading: rgba(8, 6, 12, 0.68);
+  --modal-shading: rgba(12, 10, 18, 0.44);
+}
+
+.theme-midnight {
+  --background-shading: rgba(6, 4, 10, 0.60);
+  --card-shading: rgba(10, 8, 14, 0.34);
+  --popout-shading: rgba(4, 2, 8, 0.72);
+  --modal-shading: rgba(8, 6, 12, 0.50);
+}
+
+#cv-settings-button,
+.cv-badge,
+[id*="cv-"],
+[id*="CV"],
+[class*="cv-badge"],
+[aria-label*="ClearVision"],
+[title*="ClearVision"],
+.bd-changelog-button,
+[class*="guildHeader-"] [class*="bannerImage-"]::before,
+[class*="guildHeader-"] [class*="bannerImage-"]::after,
+[class*="animatedContainer-"] [class*="cv"],
+[class*="header-"] span[class*="cv"],
+[class*="guilds-"] [class*="cv"],
+.guilds-2JjMmN [class*="cv"],
+[class*="scroller-"] > [class*="cv"],
+[class*="guildIcon-"]::before,
+[class*="guildIcon-"]::after,
+[class*="guildHeader-"] > div:first-child::before,
+[class*="guildHeader-"] > div:first-child::after,
+[class*="banner-"] > [class*="cv"],
+[class*="bannerImage-"] ~ [class*="cv"],
+[class*="communityInfoPill-"],
+.communityInfoPill-2Yzai5,
+[class*="hasBanner-"] [class*="cv"],
+[class*="guildHeaderTextContainer-"] ~ [class*="cv"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+}
+
+[class*="listItem-"]:first-child::before,
+[class*="listItem-"]:first-child::after,
+[class*="guilds-"]::before,
+[class*="guilds-"] > *:first-child::before,
+[class*="scroller-"]:has([class*="listItem-"])::before {
+  display: none !important;
+  content: none !important;
+}
+
+[class*="tutorialContainer-"],
+[class*="upperBadge-"],
+[class*="lowerBadge-"] {
+  display: none !important;
+}
+
+[class*="wrapper-"][class*="guilds-"] > div:first-child,
+[class*="unreadMentionsIndicatorTop-"],
+[class*="bar-"][class*="unread-"]::before {
+  background-image: none !important;
+}
+
+[class*="homeIcon-"],
+[class*="home-"] svg,
+[class*="tutorialContainer-"] [class*="wrapper-"] {
+  background-image: var(--home-icon) !important;
+  background-position: var(--home-position) !important;
+  background-size: var(--home-size) !important;
+  background-repeat: no-repeat !important;
+  border-radius: 50%;
+  overflow: hidden;
+  filter: saturate(1.1) brightness(1.05);
+}
+
+[class*="homeIcon-"] svg,
+[class*="home-"] svg path {
+  opacity: 0 !important;
+}
+
+[class*="containerDefault"],
+[class*="container-"] {
+  background-color: transparent !important;
+  border-radius: 4px;
+  margin: 1px 8px;
+}
+
+[class*="containerDefault"]:hover,
+[class*="container-"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.08) !important;
+}
+
+[class*="name-"] {
+  color: var(--mid-gray);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+[class*="containerDefault"]:hover [class*="name-"] {
+  color: var(--pure-white);
+}
+
+[class*="unread-"]:not([class*="item"]) {
+  background-color: var(--main-color) !important;
+  width: 4px !important;
+  height: 8px !important;
+  border-radius: 0 4px 4px 0 !important;
+  box-shadow: 0 0 8px var(--accent-glow) !important;
+}
+
+[class*="modeUnread"] [class*="name-"],
+[class*="unread"] [class*="name-"] {
+  color: var(--channel-unread) !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 10px var(--accent-glow) !important;
+}
+
+[class*="modeSelected"],
+[class*="selected-"] {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.20) !important;
+  border-left: 3px solid var(--main-color) !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+
+[class*="modeSelected"] [class*="name-"] {
+  color: var(--channel-text-selected) !important;
+}
+
+[class*="arrow-"],
+[class*="iconContainer-"] svg {
+  color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.45);
+}
+
+[class*="containerDefault"]:hover [class*="arrow-"],
+[class*="containerDefault"]:hover [class*="iconContainer-"] svg {
+  color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.85);
+}
+
+[class*="message-"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.07);
+}
+
+[class*="mention"]:not([class*="icon"]):not([class*="iconMention"]) {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.22) !important;
+  color: var(--pure-white) !important;
+  font-weight: 500 !important;
+  border-radius: 3px !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.35) !important;
+}
+
+[class*="mention"]:not([class*="icon"]):not([class*="iconMention"]):hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.38) !important;
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+[class*="channelMention"],
+[data-type="channel"] {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.28) !important;
+  color: var(--pure-white) !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.4) !important;
+}
+
+[class*="channelMention"]:hover,
+[data-type="channel"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.42) !important;
+}
+
+[class*="divider-"][class*="hasContent-"] {
+  border-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.2);
+}
+
+[class*="hljs"],
+[class*="codeBlock-"],
+code {
+  background: rgba(12, 10, 18, 0.75) !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18);
+  border-radius: 6px;
+  font-family: var(--code-font);
+}
+
+[class*="embedFull-"],
+[class*="embed-"] {
+  background-color: rgba(20, 16, 28, 0.55) !important;
+  border-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.35) !important;
+  border-left-width: 3px !important;
+  border-radius: 4px;
+}
+
+[class*="reaction-"] {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.08);
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.2);
+  border-radius: 8px;
+}
+
+[class*="reaction-"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18);
+}
+
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.28) !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.45) !important;
+}
+
+[class*="panels-"] {
+  background: linear-gradient(180deg, rgba(22, 18, 30, 0.65), rgba(12, 10, 18, 0.85));
+  border-top: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.12);
+}
+
+[class*="searchBar-"]:focus-within {
+  border-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.45) !important;
+  box-shadow: 0 0 0 1px rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.2), 0 0 15px var(--accent-glow);
+}
+
+[class*="form-"],
+[class*="channelTextArea-"],
+[class*="scrollableContainer-"],
+[class*="themedBackground-"] {
+  background-color: rgba(18, 16, 26, 0.30) !important;
+  border-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+[class*="channelTextArea-"]:focus-within,
+[class*="scrollableContainer-"]:focus-within {
+  background-color: rgba(20, 18, 30, 0.36) !important;
+  border-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.28) !important;
+}
+
+[class*="tooltip-"] {
+  background: rgba(10, 8, 14, 0.96) !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.18);
+  border-radius: 6px;
+}
+
+[class*="menu-"] {
+  background: rgba(12, 10, 16, 0.96) !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.14);
+  border-radius: 6px;
+}
+
+[class*="menu-"] [class*="item-"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.12) !important;
+}
+
+[class*="lookFilled-"][class*="colorBrand-"],
+[class*="button-"][class*="colorBrand-"] {
+  background: linear-gradient(135deg, rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.45), rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.3)) !important;
+  border: 1px solid rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.55);
+  border-radius: 4px;
+}
+
+[class*="numberBadge-"],
+[class*="badge-"] {
+  background: linear-gradient(135deg, var(--hover-color), var(--main-color)) !important;
+  color: var(--deep-black) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--accent-glow) !important;
+  border: none;
+}
+
+::selection {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.35);
+  color: var(--pure-white);
+}
+
+::-moz-selection {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.35);
+  color: var(--pure-white);
+}
+
+[class*="member-"]:hover {
+  background-color: rgba(var(--accent-r), var(--accent-g), var(--accent-b), 0.08) !important;
+}

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discord Themes — Community Collection</title>
+  <meta name="description" content="A community collection of custom Discord themes for BetterDiscord and Vencord." />
+  <style>
+    :root {
+      --bg:      #08060e;
+      --surface: #0f0b1c;
+      --card:    #160f26;
+      --border:  #2a1f45;
+      --accent:  #7c3aed;
+      --accent2: #c084fc;
+      --text:    #ede8f8;
+      --muted:   #9b8ab5;
+      --green:   #3ba55c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,6,14,.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 24px;
+      height: 56px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 22px; height: 22px; }
+    nav a.nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .875rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color .15s, background .15s;
+    }
+    nav a.nav-link:hover { color: var(--text); background: var(--card); }
+    .nav-btn {
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: 6px;
+      padding: 6px 14px !important;
+      font-weight: 600;
+      transition: opacity .15s !important;
+    }
+    .nav-btn:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 96px 24px 80px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.18) 0%, transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%237c3aed' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,.15);
+      border: 1px solid rgba(124,58,237,.35);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: .75rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--accent2); }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: .9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .1s, opacity .15s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: .88; }
+    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── STATS BAR ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .stat-item {
+      padding: 20px 40px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 1.75rem; font-weight: 800; color: var(--accent2); }
+    .stat-label { font-size: .8125rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 72px 24px; max-width: 1200px; margin: 0 auto; }
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+    .section-header p { color: var(--muted); font-size: .9375rem; }
+
+    /* ── SEARCH ── */
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .search-input-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px 11px 42px;
+      color: var(--text);
+      font-size: .9375rem;
+      outline: none;
+      transition: border-color .15s;
+    }
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--muted); }
+    #author-filter {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-size: .9375rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .15s;
+      min-width: 160px;
+    }
+    #author-filter:focus { border-color: var(--accent); }
+    #author-filter option { background: var(--surface); }
+    .result-count { color: var(--muted); font-size: .875rem; margin-bottom: 20px; }
+
+    /* ── THEME GRID ── */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .theme-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .15s, transform .12s;
+    }
+    .theme-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-title { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+    .card-desc { font-size: .875rem; color: var(--muted); line-height: 1.55; flex: 1; }
+    .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .author-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 10px 3px 4px;
+      font-size: .8125rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color .15s;
+    }
+    .author-chip:hover { border-color: var(--accent2); }
+    .author-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--border);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .version-tag { color: var(--muted); font-size: .75rem; margin-left: auto; }
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .action-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: .8125rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity .15s;
+      white-space: nowrap;
+    }
+    .action-btn:hover { opacity: .8; }
+    .btn-copy { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-raw  { background: rgba(124,58,237,.14); color: var(--accent2); border: 1px solid rgba(124,58,237,.3); }
+    .btn-copy.copied { color: var(--green); border-color: rgba(59,165,92,.4); }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      display: none;
+    }
+    .no-results svg { opacity: .3; margin-bottom: 16px; }
+    .no-results p { font-size: 1rem; }
+
+    /* ── AUTHORS ── */
+    .authors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .author-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      transition: border-color .15s, transform .12s;
+    }
+    .author-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .author-card-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      transition: border-color .15s;
+      background: var(--surface);
+    }
+    .author-card:hover .author-card-avatar { border-color: var(--accent2); }
+    .author-card-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .author-card h3 { font-size: 1.0625rem; font-weight: 700; }
+    .author-card .theme-count { color: var(--muted); font-size: .875rem; }
+    .author-card-links { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+    .author-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: .8125rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      transition: border-color .15s, color .15s;
+    }
+    .author-link:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── GET STARTED ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color .15s;
+    }
+    .info-card:hover { border-color: var(--accent); }
+    .info-card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--accent2);
+    }
+    .icon-a { background: rgba(124,58,237,.18); }
+    .icon-b { background: rgba(167,90,255,.14); }
+    .icon-c { background: rgba(192,132,252,.12); }
+    .icon-d { background: rgba(109,40,217,.20); }
+    .info-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .info-card p  { font-size: .875rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .info-card a  { color: var(--accent2); text-decoration: none; font-weight: 600; font-size: .875rem; }
+    .info-card a:hover { text-decoration: underline; }
+
+    /* ── DEV SECTION ── */
+    .dev-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .dev-section section { padding: 72px 24px; }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 32px; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(124,58,237,.15);
+      border: 1px solid rgba(124,58,237,.35);
+      color: var(--accent2);
+      font-weight: 700;
+      font-size: .9375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-body h4 { font-weight: 600; margin-bottom: 4px; }
+    .step-body p  { font-size: .875rem; color: var(--muted); line-height: 1.6; }
+    .step-body code {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: .8125rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: var(--accent2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .875rem;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── MISC ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    @media (max-width: 640px) {
+      .stats { flex-wrap: wrap; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); flex: 1 1 50%; }
+      nav a.nav-link { display: none; }
+      .nav-btn { display: inline-flex !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60.105 4.898A58.549 58.549 0 0 0 45.865.408a.22.22 0 0 0-.231.11 40.784 40.784 0 0 0-1.8 3.697c-5.456-.817-10.886-.817-16.23 0a37.36 37.36 0 0 0-1.827-3.697.228.228 0 0 0-.231-.11 58.388 58.388 0 0 0-14.24 4.49.207.207 0 0 0-.095.082C1.578 18.73-.944 32.144.292 45.39a.244.244 0 0 0 .093.167c5.981 4.394 11.776 7.066 17.467 8.83a.23.23 0 0 0 .249-.082 42.08 42.08 0 0 0 3.627-5.9.225.225 0 0 0-.123-.312 38.772 38.772 0 0 1-5.539-2.64.228.228 0 0 1-.022-.378 31.269 31.269 0 0 0 1.1-.862.22.22 0 0 1 .23-.031c11.619 5.304 24.198 5.304 35.68 0a.219.219 0 0 1 .232.028c.356.293.728.586 1.103.865a.228.228 0 0 1-.02.378 36.384 36.384 0 0 1-5.54 2.637.227.227 0 0 0-.12.315 47.249 47.249 0 0 0 3.623 5.897.225.225 0 0 0 .249.084c5.715-1.765 11.51-4.436 17.492-8.83a.228.228 0 0 0 .092-.164c1.46-15.115-2.441-28.42-10.333-40.412a.18.18 0 0 0-.092-.084z" fill="#c084fc"/>
+    </svg>
+    discord-themes
+  </a>
+  <a href="#themes"  class="nav-link">Browse</a>
+  <a href="#authors" class="nav-link">Authors</a>
+  <a href="#wiki"    class="nav-link">Wiki</a>
+  <a href="#dev"     class="nav-link">Contribute</a>
+  <a href="https://github.com/Silverfox0338/discord-themes" class="nav-link nav-btn" target="_blank" rel="noopener">GitHub</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Community Collection</div>
+  <h1>Beautiful themes for<br><span>Discord</span></h1>
+  <p>Hand-crafted custom Discord themes for BetterDiscord and Vencord — built by people who actually care about how their client looks.</p>
+  <div class="hero-actions">
+    <a href="#themes" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+      Browse Themes
+    </a>
+    <a href="#dev" class="btn btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+      Submit Your Theme
+    </a>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num" id="stat-themes">—</div><div class="stat-label">Themes</div></div>
+  <div class="stat-item"><div class="stat-num" id="stat-authors">—</div><div class="stat-label">Contributors</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Platforms</div></div>
+  <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Always Free</div></div>
+</div>
+
+<hr class="divider" />
+
+<!-- THEMES -->
+<section id="themes">
+  <div class="section-header">
+    <h2>Theme Catalog</h2>
+    <p>Search by name, author, or description. Click "Copy URL" to grab the raw install link.</p>
+  </div>
+
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input id="search" type="text" placeholder="Search themes..." autocomplete="off" />
+    </div>
+    <select id="author-filter">
+      <option value="">All Authors</option>
+    </select>
+  </div>
+
+  <div class="result-count" id="result-count"></div>
+  <div class="theme-grid" id="theme-grid"></div>
+  <div class="no-results" id="no-results">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <p>No themes match your search.</p>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- AUTHORS -->
+<section id="authors">
+  <div class="section-header">
+    <h2>Contributors</h2>
+    <p>The people behind these themes — their GitHub profiles, theme counts, and author pages.</p>
+  </div>
+  <div class="authors-grid" id="authors-grid"></div>
+</section>
+
+<hr class="divider" />
+
+<!-- WIKI / GET STARTED -->
+<section id="wiki">
+  <div class="section-header">
+    <h2>Get Started</h2>
+    <p>New here? Everything you need to find, install, and customize Discord themes.</p>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon icon-a">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+      </div>
+      <h3>Full Wiki</h3>
+      <p>Step-by-step installation guides, FAQ, and detailed documentation for every aspect of using and contributing themes.</p>
+      <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">Open the Wiki →</a>
+    </div>
+    <div class="info-card">
+      <div class="icon icon-b">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.28L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.06 18.13 6 15.18 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg>
+      </div>
+      <h3>Quick Install</h3>
+      <p>Copy a raw theme URL from the catalog. In BetterDiscord or Vencord, paste it into the online theme loader — done. Updates apply automatically.</p>
+      <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">Installation guide →</a>
+    </div>
+    <div class="info-card">
+      <div class="icon icon-c">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      </div>
+      <h3>BetterDiscord</h3>
+      <p>Download the <code>.css</code> file and drop it in your BD themes folder, or paste the raw URL into the online theme loader.</p>
+      <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">BD guide →</a>
+    </div>
+    <div class="info-card">
+      <div class="icon icon-d">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>
+      </div>
+      <h3>Vencord</h3>
+      <p>Paste the raw URL into Vencord's theme settings. The theme stays up to date automatically — no re-downloading needed.</p>
+      <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">Vencord guide →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- DEV SECTION -->
+<div class="dev-section" id="dev">
+  <section>
+    <div class="section-header">
+      <h2>Contribute a Theme</h2>
+      <p>This repo is open to everyone. If you've built a Discord theme, you're welcome here — the process takes about 5 minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Fork the repository</h4>
+          <p>Hit <strong>Fork</strong> on the <a href="https://github.com/Silverfox0338/discord-themes" target="_blank" rel="noopener" style="color:var(--accent2)">GitHub repo</a>. This gives you your own copy to work from.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Create your folder</h4>
+          <p>Add a folder named <code>YourName Themes/</code> at the root. Put your <code>.css</code> files inside, organized into subfolders per theme.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Run the theme tool</h4>
+          <p>Use <code>themecmd.cmd</code> to register your metadata. It generates the correct entries in <code>theme-authors.json</code> and validates your structure.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Open a pull request</h4>
+          <p>Submit a PR from your fork. The validation bot runs automatically and flags anything that needs fixing. Once merged, future PRs from registered contributors auto-merge.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://github.com/Silverfox0338/discord-themes/wiki/Developer-&-Contributor-Guide" target="_blank" rel="noopener" class="btn btn-primary">Full Contributor Guide</a>
+      <a href="https://github.com/Silverfox0338/discord-themes/fork" target="_blank" rel="noopener" class="btn btn-secondary">Fork on GitHub</a>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <a href="https://github.com/Silverfox0338/discord-themes" target="_blank" rel="noopener">discord-themes</a>
+    — a community collection. Not affiliated with Discord Inc.
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">Wiki</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Silverfox0338/discord-themes/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+  </p>
+</footer>
+
+<script>
+const GH_AVATAR = (id) => `https://avatars.githubusercontent.com/u/${id}?s=80`;
+
+let THEMES  = [];
+let AUTHORS = {};
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function buildCard(t) {
+  const a      = AUTHORS[t.author] || {};
+  const avatar = GH_AVATAR(a.githubId || 0);
+  const ghLink = `https://github.com/${a.github || t.author}`;
+  const rawEsc = esc(t.raw);
+  return `
+    <div class="theme-card">
+      <div class="card-title">${esc(t.name)}</div>
+      <div class="card-desc">${esc(t.description)}</div>
+      <div class="card-meta">
+        <a href="${esc(ghLink)}" target="_blank" rel="noopener" class="author-chip">
+          <div class="author-avatar"><img src="${avatar}" alt="${esc(t.author)}" loading="lazy" /></div>
+          ${esc(t.author)}
+        </a>
+        <span class="version-tag">v${esc(t.version)}</span>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn btn-copy" data-url="${rawEsc}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy URL
+        </button>
+        <a href="${rawEsc}" target="_blank" rel="noopener" class="action-btn btn-raw">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          Raw CSS
+        </a>
+      </div>
+    </div>`;
+}
+
+document.getElementById('theme-grid').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-copy');
+  if (!btn) return;
+  navigator.clipboard.writeText(btn.dataset.url).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy URL`;
+    }, 2000);
+  });
+});
+
+function renderThemes(list) {
+  const grid  = document.getElementById('theme-grid');
+  const none  = document.getElementById('no-results');
+  const count = document.getElementById('result-count');
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    none.style.display = 'block';
+    count.textContent = '0 themes found';
+  } else {
+    none.style.display = 'none';
+    grid.innerHTML = list.map(buildCard).join('');
+    count.textContent = `${list.length} theme${list.length !== 1 ? 's' : ''}`;
+  }
+}
+
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const a = document.getElementById('author-filter').value.toLowerCase();
+  renderThemes(THEMES.filter(t =>
+    (!q || t.name.toLowerCase().includes(q) || t.author.toLowerCase().includes(q) || t.description.toLowerCase().includes(q)) &&
+    (!a || t.author.toLowerCase() === a)
+  ));
+}
+
+document.getElementById('search').addEventListener('input', filter);
+document.getElementById('author-filter').addEventListener('change', filter);
+
+function buildAuthors() {
+  const GH_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`;
+  document.getElementById('authors-grid').innerHTML = Object.entries(AUTHORS).map(([name, a]) => {
+    const count   = THEMES.filter(t => t.author === name).length;
+    const profile = a.profile ? `<a href="${esc(a.profile)}" target="_blank" rel="noopener" class="author-link">Profile</a>` : '';
+    return `
+      <div class="author-card">
+        <div class="author-card-avatar">
+          <img src="${GH_AVATAR(a.githubId)}" alt="${esc(name)}" loading="lazy" />
+        </div>
+        <h3>${esc(name)}</h3>
+        <div class="theme-count">${count} theme${count !== 1 ? 's' : ''}</div>
+        <div class="author-card-links">
+          <a href="https://github.com/${esc(a.github)}" target="_blank" rel="noopener" class="author-link">${GH_ICON} GitHub</a>
+          ${profile}
+          <a href="#themes" class="author-link" onclick="document.getElementById('author-filter').value='${esc(name)}';filter();return false;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            Themes
+          </a>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function populateAuthorFilter() {
+  const sel = document.getElementById('author-filter');
+  sel.innerHTML = '<option value="">All Authors</option>' +
+    Object.keys(AUTHORS).map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
+}
+
+async function init() {
+  try {
+    const res  = await fetch('./themes.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    AUTHORS = data.authors || {};
+    THEMES  = data.themes  || [];
+  } catch (e) {
+    console.error('Could not load themes.json:', e);
+    document.getElementById('result-count').textContent = 'Failed to load themes — try refreshing.';
+    return;
+  }
+  document.getElementById('stat-themes').textContent  = THEMES.length;
+  document.getElementById('stat-authors').textContent = Object.keys(AUTHORS).length;
+  populateAuthorFilter();
+  renderThemes(THEMES);
+  buildAuthors();
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Touhou Project [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Touhou Project wallpaper and a matching rosy neutral accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/touhou-project-anime-wallpaperwaifu-com.gif");
+  --accent-r: 157;
+  --accent-g: 141;
+  --accent-b: 149;
+  --main-color: #9D8D95;
+  --hover-color: #AD9FA6;
+  --text-link: #AD9FA6;
+  --channel-color: #84777D;
+  --muted-color: #9E99A5;
+  --deep-surface: #4B444D;
+  --accent-glow: rgba(157, 141, 149, 0.38);
+  --background-overlay: rgba(157, 141, 149, 0.32);
+}

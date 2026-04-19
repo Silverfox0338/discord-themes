@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Bride Furina [Mild NSFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Bride Furina wallpaper and a matching pale violet accent palette. Contains mild NSFW / suggestive imagery.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/bride-furina-genshin-impact-moewalls-com.gif");
+  --accent-r: 168;
+  --accent-g: 166;
+  --accent-b: 189;
+  --main-color: #A8A6BD;
+  --hover-color: #B6B4C8;
+  --text-link: #B6B4C8;
+  --channel-color: #8D8B9E;
+  --muted-color: #A4A7BB;
+  --deep-surface: #504F5F;
+  --accent-glow: rgba(168, 166, 189, 0.38);
+  --background-overlay: rgba(168, 166, 189, 0.32);
+}

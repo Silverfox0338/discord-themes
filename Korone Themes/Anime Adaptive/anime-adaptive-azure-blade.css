@@ -1,0 +1,35 @@
+/**
+ * @name Anime Adaptive - Azure Blade [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Azure Blade wallpaper and a matching blue accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/azure-blade-moewalls-com.gif");
+  --accent-r: 45;
+  --accent-g: 78;
+  --accent-b: 140;
+  --main-color: #2D4E8C;
+  --hover-color: #4F6A9E;
+  --text-link: #4F6A9E;
+  --channel-color: #284376;
+  --muted-color: #6177A0;
+  --deep-surface: #192749;
+  --accent-glow: rgba(45, 78, 140, 0.38);
+  --background-overlay: rgba(45, 78, 140, 0.32);
+  --background-brightness: 0.76;
+  --background-contrast: 1.1;
+  --background-saturation: 1.08;
+  --transparency: 0.80;
+}
+
+.theme-dark {
+  --background-shading: rgba(18, 22, 34, 0.46);
+  --card-shading: rgba(24, 30, 46, 0.24);
+  --popout-shading: rgba(14, 18, 28, 0.68);
+  --modal-shading: rgba(18, 22, 34, 0.50);
+  --input-shading: rgba(45, 78, 140, 0.18);
+}

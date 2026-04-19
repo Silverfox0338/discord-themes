@@ -1,11 +1,29 @@
-﻿{
+{
   "schemaVersion": 1,
   "folders": {
     "8Bit Themes": {
-      "author": "8Bit"
+      "author": "8Bit",
+      "github": "8-bitStudio",
+      "githubId": 256004323,
+      "trusted": true
     },
     "Silver Themes": {
-      "author": "Silverfox0338"
+      "author": "Silverfox0338",
+      "github": "Silverfox0338",
+      "githubId": 244269159,
+      "trusted": true
+    },
+    "Stone Themes": {
+      "author": "Stone",
+      "github": "TheStoneGamingMode",
+      "githubId": 152815009,
+      "trusted": true
+    },
+    "Korone Themes": {
+      "author": "Korone",
+      "github": "FxckingAngel",
+      "githubId": 70914843,
+      "trusted": true
     }
   }
 }

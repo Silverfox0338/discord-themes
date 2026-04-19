@@ -1,0 +1,103 @@
+name: Register new contributors on merge
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: registry-write
+  cancel-in-progress: false
+
+jobs:
+  register:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.README_PUSH_TOKEN }}
+
+      - name: Register contributor if new folder was merged
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.README_PUSH_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              commit_sha: context.sha,
+            });
+
+            const pr = prs.find(p => p.merged_at && p.base.ref === 'main');
+            if (!pr) return;
+
+            const prAuthor   = pr.user.login;
+            const prAuthorId = pr.user.id;
+
+            const raw  = fs.readFileSync('theme-authors.json', 'utf8').replace(/^\uFEFF/, '');
+            const data = JSON.parse(raw);
+
+            // ID takes precedence over login for existing-contributor check
+            if (Object.values(data.folders).some(e =>
+              e.githubId ? e.githubId === prAuthorId : (e.github || '').toLowerCase() === prAuthor.toLowerCase()
+            )) return;
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              pull_number: pr.number,
+            });
+
+            const newFolders = [...new Set(
+              files
+                .filter(f => f.status === 'added' && f.filename.includes('/'))
+                .map(f => f.filename.split('/')[0])
+                .filter(folder => !data.folders[folder])
+            )];
+
+            if (newFolders.length === 0) return;
+
+            for (const folder of newFolders) {
+              let displayName = null;
+              try {
+                const authorMdContent = fs.readFileSync(`${folder}/AUTHOR.md`, 'utf8');
+                const h1Match = authorMdContent.match(/^#\s+(.+)$/m);
+                if (h1Match) displayName = h1Match[1].trim();
+              } catch (_) {}
+              if (!displayName) {
+                const { data: user } = await github.rest.users.getByUsername({ username: prAuthor });
+                displayName = user.name || prAuthor;
+              }
+              data.folders[folder] = { author: displayName, github: prAuthor, githubId: prAuthorId, trusted: false };
+            }
+
+            fs.writeFileSync('theme-authors.json', '\uFEFF' + JSON.stringify(data, null, 2) + '\n', 'utf8');
+
+      - name: Commit if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet theme-authors.json && echo "No new contributors." || \
+            (git add theme-authors.json && git commit -m "chore: register new contributor(s) [skip ci]" && git push)
+
+      - name: Open issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.README_PUSH_TOKEN }}
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: 'Post-merge contributor registration failed',
+              body:  `The \`register\` workflow failed after a push to main.\n\nCommit: \`${context.sha}\`\n\n[View run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n\nManually verify \`theme-authors.json\` and re-run if needed.`,
+              labels: ['bug'],
+            });

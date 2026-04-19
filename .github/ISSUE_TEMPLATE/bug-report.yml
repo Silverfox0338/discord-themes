@@ -1,0 +1,78 @@
+name: Bug Report
+description: A theme isn't rendering correctly or something looks broken.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Fill out as much as you can — screenshots help a lot.
+
+  - type: dropdown
+    id: mod
+    attributes:
+      label: Discord Mod
+      description: Which mod are you using?
+      options:
+        - BetterDiscord
+        - Vencord
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: author
+    attributes:
+      label: Theme Author
+      description: Who made the theme?
+      options:
+        - 8Bit
+        - Korone
+        - Silverfox0338
+        - Stone
+    validations:
+      required: true
+
+  - type: input
+    id: theme
+    attributes:
+      label: Theme Name
+      description: Which theme is affected?
+      placeholder: e.g. Dr. Stone
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's broken?
+      description: Describe what you're seeing versus what you'd expect.
+      placeholder: e.g. The sidebar background is completely white instead of the custom color.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Install the theme via raw URL
+        2. Open Discord
+        3. ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag and drop images here if you have them.
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Discord Version
+      placeholder: e.g. 0.0.309
+    validations:
+      required: false

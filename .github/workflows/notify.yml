@@ -1,0 +1,168 @@
+name: Post-run events
+
+on:
+  workflow_run:
+    workflows: ["Validate and auto-merge PRs"]
+    types: [completed]
+  issues:
+    types: [opened]
+
+jobs:
+
+  # ── New issue opened ────────────────────────────────────────────────────────
+  issue:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        env:
+          HOOK:   ${{ secrets.DISCORD_WEBHOOK }}
+          AUTHOR: ${{ github.event.issue.user.login }}
+          TITLE:  ${{ github.event.issue.title }}
+          URL:    ${{ github.event.issue.html_url }}
+          NUM:    ${{ github.event.issue.number }}
+          LABELS: ${{ toJSON(github.event.issue.labels) }}
+        run: |
+          LABEL=$(echo "$LABELS" | jq -r '.[0].name // ""')
+          case "$LABEL" in
+            bug)        COLOR=15548997; KIND="Bug Report"   ;;
+            suggestion) COLOR=3447003;  KIND="Suggestion"   ;;
+            *)          COLOR=8311585;  KIND="Issue"        ;;
+          esac
+
+          jq -n \
+            --arg  author  "@${AUTHOR}" \
+            --arg  avatar  "https://github.com/${AUTHOR}.png?size=32" \
+            --arg  gh_url  "https://github.com/${AUTHOR}" \
+            --arg  title   "#${NUM} — ${KIND}" \
+            --arg  desc    "**${TITLE}**" \
+            --argjson color "$COLOR" \
+            --arg  url     "$URL" \
+            --arg  ts      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{
+              embeds: [{
+                author:      {name: $author, icon_url: $avatar, url: $gh_url},
+                title:       $title,
+                url:         $url,
+                description: $desc,
+                color:       $color,
+                footer:      {text: "discord-themes"},
+                timestamp:   $ts
+              }]
+            }' \
+          | curl -s -X POST "$HOOK" -H "Content-Type: application/json" -d @-
+
+  # ── PR workflow outcome ─────────────────────────────────────────────────────
+  pr:
+    if: github.event_name == 'workflow_run'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    steps:
+      - name: Download payload
+        uses: actions/download-artifact@v4
+        id: download
+        with:
+          name: pr-notification
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Send Discord notification
+        if: steps.download.outcome == 'success'
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          PAYLOAD=$(cat notification.json)
+          OUTCOME=$(echo "$PAYLOAD"   | jq -r '.outcome')
+          PR_NUM=$(echo "$PAYLOAD"    | jq -r '.prNumber')
+          PR_TITLE=$(echo "$PAYLOAD"  | jq -r '.prTitle')
+          PR_URL=$(echo "$PAYLOAD"    | jq -r '.prUrl')
+          PR_AUTHOR=$(echo "$PAYLOAD" | jq -r '.prAuthor')
+          ISSUES=$(echo "$PAYLOAD"    | jq '.issues')
+          ISSUE_COUNT=$(echo "$ISSUES" | jq 'length')
+
+          AVATAR="https://github.com/${PR_AUTHOR}.png?size=32"
+          GH_URL="https://github.com/${PR_AUTHOR}"
+          PR_LINK="[#${PR_NUM}](${PR_URL})"
+          TS="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          BASE_FIELDS=$(jq -n \
+            --arg pr "$PR_LINK" \
+            '[{name:"PR",value:$pr,inline:true}]')
+
+          case "$OUTCOME" in
+
+            auto_merged)
+              FIELDS=$(echo "$BASE_FIELDS" | jq \
+                '[{name:"Status",value:"Auto-merged ✓",inline:true}] + .')
+              BODY=$(jq -n \
+                --arg  author  "@${PR_AUTHOR}" \
+                --arg  avatar  "$AVATAR" \
+                --arg  gh_url  "$GH_URL" \
+                --arg  title   "Merged — PR #${PR_NUM}" \
+                --arg  desc    "**${PR_TITLE}**" \
+                --argjson color  5763719 \
+                --arg  url     "$PR_URL" \
+                --argjson fields "$FIELDS" \
+                --arg  ts      "$TS" \
+                '{embeds:[{author:{name:$author,icon_url:$avatar,url:$gh_url},title:$title,url:$url,description:$desc,color:$color,fields:$fields,footer:{text:"discord-themes"},timestamp:$ts}]}')
+              ;;
+
+            rejected_collaborator|rejected_registered|rejected_unknown)
+              ISSUE_FIELDS=$(echo "$ISSUES" | jq \
+                '[to_entries | .[] | select(.key < 3) | {name: ("Issue \(.key+1)"), value: .value, inline: false}]')
+              FIELDS=$(jq -n \
+                --arg  count  "${ISSUE_COUNT}" \
+                --arg  pr     "$PR_LINK" \
+                --argjson ifields "$ISSUE_FIELDS" \
+                '[{name:"Status",value:("Blocked — \($count) issue(s)"),inline:true},{name:"PR",value:$pr,inline:true}] + $ifields')
+              BODY=$(jq -n \
+                --arg  author  "@${PR_AUTHOR}" \
+                --arg  avatar  "$AVATAR" \
+                --arg  gh_url  "$GH_URL" \
+                --arg  title   "Blocked — PR #${PR_NUM}" \
+                --arg  desc    "**${PR_TITLE}**" \
+                --argjson color  15548997 \
+                --arg  url     "$PR_URL" \
+                --argjson fields "$FIELDS" \
+                --arg  ts      "$TS" \
+                '{embeds:[{author:{name:$author,icon_url:$avatar,url:$gh_url},title:$title,url:$url,description:$desc,color:$color,fields:$fields,footer:{text:"discord-themes"},timestamp:$ts}]}')
+              ;;
+
+            needs_trust_approval)
+              FIELDS=$(echo "$BASE_FIELDS" | jq \
+                '[{name:"Status",value:"Registered — awaiting trust",inline:true}] + .')
+              BODY=$(jq -n \
+                --arg  author  "@${PR_AUTHOR}" \
+                --arg  avatar  "$AVATAR" \
+                --arg  gh_url  "$GH_URL" \
+                --arg  title   "Needs Trust Approval — PR #${PR_NUM}" \
+                --arg  desc    "**${PR_TITLE}**\n\nAll checks passed. Set \`trusted: true\` in \`theme-authors.json\` to enable auto-merge for this contributor." \
+                --argjson color  16750848 \
+                --arg  url     "$PR_URL" \
+                --argjson fields "$FIELDS" \
+                --arg  ts      "$TS" \
+                '{embeds:[{author:{name:$author,icon_url:$avatar,url:$gh_url},title:$title,url:$url,description:$desc,color:$color,fields:$fields,footer:{text:"discord-themes"},timestamp:$ts}]}')
+              ;;
+
+            needs_review)
+              FIELDS=$(echo "$BASE_FIELDS" | jq \
+                '[{name:"Status",value:"New contributor",inline:true}] + .')
+              BODY=$(jq -n \
+                --arg  author  "@${PR_AUTHOR}" \
+                --arg  avatar  "$AVATAR" \
+                --arg  gh_url  "$GH_URL" \
+                --arg  title   "Needs Review — PR #${PR_NUM}" \
+                --arg  desc    "**${PR_TITLE}**\n\nAll checks passed. Review and merge to register this contributor." \
+                --argjson color  16750848 \
+                --arg  url     "$PR_URL" \
+                --argjson fields "$FIELDS" \
+                --arg  ts      "$TS" \
+                '{embeds:[{author:{name:$author,icon_url:$avatar,url:$gh_url},title:$title,url:$url,description:$desc,color:$color,fields:$fields,footer:{text:"discord-themes"},timestamp:$ts}]}')
+              ;;
+
+            *) exit 0 ;;
+          esac
+
+          echo "$BODY" | curl -s -X POST "$HOOK" -H "Content-Type: application/json" -d @-

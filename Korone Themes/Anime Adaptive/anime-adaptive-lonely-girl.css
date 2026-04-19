@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Lonely Girl Far Away At Night [SFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Lonely Girl Far Away At Night wallpaper and a matching dusk accent palette.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/lonely-girl-far-away-at-night-wallpaperwaifu-com.gif");
+  --accent-r: 81;
+  --accent-g: 84;
+  --accent-b: 103;
+  --main-color: #515467;
+  --hover-color: #6D6F7F;
+  --text-link: #6D6F7F;
+  --channel-color: #464858;
+  --muted-color: #757A8B;
+  --deep-surface: #292A38;
+  --accent-glow: rgba(81, 84, 103, 0.38);
+  --background-overlay: rgba(81, 84, 103, 0.32);
+}

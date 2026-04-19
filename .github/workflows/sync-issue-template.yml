@@ -1,0 +1,56 @@
+name: Sync bug report author list
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'theme-authors.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.README_PUSH_TOKEN }}
+
+      - name: Update author dropdown in bug-report template
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const authors = JSON.parse(
+              fs.readFileSync('theme-authors.json', 'utf8').replace(/^\uFEFF/, '')
+            );
+
+            const options = Object.values(authors.folders || {})
+              .map(f => f.author)
+              .filter((v, i, a) => a.indexOf(v) === i)
+              .sort();
+
+            const template = fs.readFileSync('.github/ISSUE_TEMPLATE/bug-report.yml', 'utf8');
+
+            const updated = template.replace(
+              /(    id: author[\s\S]*?      options:\n)((?:        - .*\n)*)/,
+              (_, header) => header + options.map(o => `        - ${o}\n`).join('')
+            );
+
+            if (updated === template) {
+              console.log('No changes to author list.');
+              return;
+            }
+
+            fs.writeFileSync('.github/ISSUE_TEMPLATE/bug-report.yml', updated);
+
+      - name: Commit if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet .github/ISSUE_TEMPLATE/bug-report.yml && echo "No changes." || \
+            (git add .github/ISSUE_TEMPLATE/bug-report.yml && \
+             git commit -m "chore: sync bug report author list [skip ci]" && \
+             git push)

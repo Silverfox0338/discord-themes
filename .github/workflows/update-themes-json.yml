@@ -1,0 +1,58 @@
+name: Update themes.json for GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.css'
+      - 'theme-authors.json'
+      - 'scripts/generate-themes-json.ps1'
+
+jobs:
+  generate:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.README_PUSH_TOKEN }}
+
+      - name: Generate docs/themes.json
+        run: pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/generate-themes-json.ps1
+
+      - name: Commit updated themes.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git diff --quiet docs/themes.json && echo "No changes." || (git add docs/themes.json && git commit -m "chore: auto-update themes.json [skip ci]" && git push)
+        shell: bash
+
+      - name: Notify Discord on failure
+        if: failure()
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          SHA:  ${{ github.sha }}
+          RUN:  ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          jq -n \
+            --arg title "themes.json generation failed" \
+            --arg desc  "The GitHub Pages catalog failed to update on \`main\`. The site may be showing stale theme data — re-run \`update-themes-json\` or push again." \
+            --arg sha   "${SHA:0:7}" \
+            --arg run   "$RUN" \
+            --arg ts    "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{embeds:[{
+              title: $title,
+              description: $desc,
+              color: 15105570,
+              fields: [
+                {name:"Commit", value:("`"+$sha+"`"), inline:true},
+                {name:"Logs",   value:("[View run]("+$run+")"),  inline:true}
+              ],
+              footer:    {text:"discord-themes • github-actions"},
+              timestamp: $ts
+            }]}' \
+          | curl -s -X POST "$HOOK" -H "Content-Type: application/json" -d @-

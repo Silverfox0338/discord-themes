@@ -1,0 +1,23 @@
+/**
+ * @name Anime Adaptive - Konachan Sample [Mild NSFW]
+ * @author notal
+ * @version 1.0.0
+ * @description Anime Adaptive variant with the Konachan Sample wallpaper and a matching soft mauve accent palette. Contains mild NSFW / suggestive imagery.
+ */
+
+@import url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/anime-adaptive.css");
+
+:root {
+  --korone-wallpaper: url("https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Korone%20Themes/Anime%20Adaptive/wallpapers/konachan-com-402181-sample.gif");
+  --accent-r: 192;
+  --accent-g: 175;
+  --accent-b: 191;
+  --main-color: #C0AFBF;
+  --hover-color: #CABCC9;
+  --text-link: #CABCC9;
+  --channel-color: #A193A0;
+  --muted-color: #B2ACBC;
+  --deep-surface: #5B5360;
+  --accent-glow: rgba(192, 175, 191, 0.38);
+  --background-overlay: rgba(192, 175, 191, 0.32);
+}

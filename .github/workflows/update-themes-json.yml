@@ -9,6 +9,10 @@ on:
       - 'theme-authors.json'
       - 'scripts/generate-themes-json.ps1'
 
+concurrency:
+  group: bot-commit-main
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: windows-latest

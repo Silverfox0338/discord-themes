@@ -7,6 +7,10 @@ on:
     paths-ignore:
       - 'README.md'
 
+concurrency:
+  group: bot-commit-main
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: windows-latest

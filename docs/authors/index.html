@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Author — discord-themes</title>
+  <title>Authors — discord-themes</title>
   <meta name="description" content="" id="page-desc" />
   <style>
     :root {
@@ -24,8 +24,7 @@
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(8,6,14,.93);
-      backdrop-filter: blur(14px);
+      background: rgba(8,6,14,.93); backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 8px;
       padding: 0 24px; height: 56px;
@@ -40,6 +39,7 @@
       padding: 6px 12px; border-radius: 6px; transition: color .15s, background .15s;
     }
     nav a.nav-link:hover { color: var(--text); background: var(--card); }
+    nav a.nav-link.active { color: var(--accent2); }
     .nav-btn {
       background: var(--accent); color: #fff !important;
       border-radius: 6px; padding: 6px 14px !important;
@@ -47,7 +47,7 @@
     }
     .nav-btn:hover { opacity: .85; }
 
-    /* ── BACK BAR ── */
+    /* ── BACK BAR (profile only) ── */
     .back-bar {
       padding: 10px 24px;
       background: var(--surface);
@@ -60,54 +60,155 @@
     }
     .back-link:hover { color: var(--text); }
 
-    /* ── AUTHOR HERO ── */
-    .author-hero {
-      padding: 64px 24px 56px;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.20) 0%, transparent 70%);
+    /* ── BROWSE HERO ── */
+    .browse-hero {
       text-align: center;
+      padding: 72px 24px 64px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.18) 0%, transparent 70%);
       position: relative; overflow: hidden;
     }
-    .author-hero::before {
+    .browse-hero::before {
       content: '';
       position: absolute; inset: 0;
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%237c3aed' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       pointer-events: none;
     }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.35);
+      border-radius: 100px; padding: 4px 14px;
+      font-size: .75rem; color: var(--accent2);
+      font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      margin-bottom: 22px;
+      position: relative; z-index: 1;
+    }
+    .browse-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -.02em;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+    }
+    .browse-hero h1 span { color: var(--accent2); }
+    .browse-hero p {
+      font-size: 1.0625rem; color: var(--muted);
+      max-width: 520px; margin: 0 auto;
+      line-height: 1.6;
+      position: relative; z-index: 1;
+    }
+
+    /* ── BROWSE STATS BAR ── */
+    .browse-stats {
+      display: flex; justify-content: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .browse-stat {
+      padding: 18px 40px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .browse-stat:last-child { border-right: none; }
+    .browse-stat-num { font-size: 1.5rem; font-weight: 800; color: var(--accent2); }
+    .browse-stat-label { font-size: .8125rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── BROWSE GRID ── */
+    .browse-section { max-width: 1200px; margin: 0 auto; padding: 60px 24px 80px; }
+    .browse-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .browse-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 32px 24px 24px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 10px;
+      transition: border-color .15s, transform .12s;
+      text-decoration: none; color: inherit;
+    }
+    .browse-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .browse-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      overflow: hidden; background: var(--surface);
+      border: 2px solid var(--border);
+      transition: border-color .15s;
+      margin-bottom: 4px;
+    }
+    .browse-card:hover .browse-avatar { border-color: var(--accent); }
+    .browse-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .browse-name { font-size: 1.0625rem; font-weight: 700; }
+    .browse-handle { color: var(--muted); font-size: .8125rem; }
+    .browse-count {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(124,58,237,.14); border: 1px solid rgba(124,58,237,.28);
+      border-radius: 100px; padding: 3px 11px;
+      font-size: .8125rem; font-weight: 600; color: var(--accent2);
+      margin-top: 2px;
+    }
+    .browse-card-links {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      margin-top: 6px; width: 100%;
+    }
+    .card-link {
+      flex: 1; min-width: 90px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 7px 12px; border-radius: 6px;
+      font-size: .8125rem; font-weight: 600; text-decoration: none;
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+      transition: border-color .15s, color .15s;
+    }
+    .card-link:hover { border-color: var(--accent2); color: var(--accent2); }
+    .card-link-profile {
+      background: rgba(124,58,237,.12);
+      color: var(--accent2);
+      border: 1px solid rgba(124,58,237,.28);
+    }
+    .card-link-profile:hover {
+      background: rgba(124,58,237,.22);
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* ── PROFILE HERO ── */
+    .author-hero {
+      padding: 64px 24px 56px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.20) 0%, transparent 70%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .author-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%237c3aed' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
     .hero-avatar {
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      border: 3px solid var(--accent);
-      overflow: hidden;
+      width: 120px; height: 120px; border-radius: 50%;
+      border: 3px solid var(--accent); overflow: hidden;
       background: var(--surface);
       box-shadow: 0 0 40px rgba(124,58,237,.35), 0 0 80px rgba(124,58,237,.12);
-      display: inline-block;
-      margin-bottom: 22px;
+      display: inline-block; margin-bottom: 22px;
       position: relative; z-index: 1;
     }
     .hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .hero-name {
       font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 800; letter-spacing: -.02em;
-      margin-bottom: 6px;
+      font-weight: 800; letter-spacing: -.02em; margin-bottom: 6px;
       position: relative; z-index: 1;
     }
     .hero-github {
-      color: var(--muted); font-size: .9375rem;
-      margin-bottom: 18px;
+      color: var(--muted); font-size: .9375rem; margin-bottom: 18px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       position: relative; z-index: 1;
     }
     .hero-badge-row {
       display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-      margin-bottom: 26px;
-      position: relative; z-index: 1;
+      margin-bottom: 26px; position: relative; z-index: 1;
     }
-    .hero-badge {
+    .hero-badge-pill {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 4px 14px; border-radius: 100px;
       font-size: .8125rem; font-weight: 600;
-      background: rgba(124,58,237,.18);
-      border: 1px solid rgba(124,58,237,.35);
+      background: rgba(124,58,237,.18); border: 1px solid rgba(124,58,237,.35);
       color: var(--accent2);
     }
     .hero-actions {
@@ -117,14 +218,13 @@
     .hero-btn {
       display: inline-flex; align-items: center; gap: 7px;
       padding: 9px 20px; border-radius: 7px;
-      font-size: .875rem; font-weight: 600;
-      text-decoration: none; transition: opacity .15s, border-color .15s, color .15s;
+      font-size: .875rem; font-weight: 600; text-decoration: none;
+      transition: opacity .15s, border-color .15s, color .15s;
     }
     .hero-btn-primary { background: var(--accent); color: #fff; }
     .hero-btn-primary:hover { opacity: .85; }
     .hero-btn-secondary {
-      background: var(--card); color: var(--text);
-      border: 1px solid var(--border);
+      background: var(--card); color: var(--text); border: 1px solid var(--border);
     }
     .hero-btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
 
@@ -135,15 +235,13 @@
       border-radius: 12px; padding: 32px;
     }
     .bio-label {
-      font-size: .75rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--accent2); margin-bottom: 18px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 18px;
     }
     .bio-content { line-height: 1.7; color: var(--text); }
     .bio-content > *:first-child { margin-top: 0 !important; }
     .bio-content h2 {
-      font-size: 1.0625rem; font-weight: 700;
-      margin: 28px 0 12px;
+      font-size: 1.0625rem; font-weight: 700; margin: 28px 0 12px;
       padding-bottom: 6px; border-bottom: 1px solid var(--border);
     }
     .bio-content h3 { font-size: 1rem; font-weight: 600; margin: 20px 0 8px; color: var(--accent2); }
@@ -163,26 +261,22 @@
       color: var(--accent2);
     }
     .bio-content table {
-      width: 100%; border-collapse: collapse;
-      margin: 4px 0 16px; font-size: .875rem; overflow: hidden; border-radius: 6px;
+      width: 100%; border-collapse: collapse; margin: 4px 0 16px; font-size: .875rem;
     }
     .bio-content th {
-      background: var(--surface); color: var(--muted);
-      font-weight: 600; text-align: left;
-      padding: 8px 12px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted); font-weight: 600;
+      text-align: left; padding: 8px 12px; border: 1px solid var(--border);
       font-size: .8125rem; text-transform: uppercase; letter-spacing: .04em;
     }
     .bio-content td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; }
     .bio-content tr:nth-child(even) td { background: rgba(255,255,255,.02); }
     .bio-content hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
-    /* ── THEMES SECTION ── */
+    /* ── PROFILE THEME GRID ── */
     .themes-section { max-width: 1200px; margin: 0 auto; padding: 48px 24px 72px; }
     .section-header { margin-bottom: 28px; }
     .section-header h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
     .section-header p { color: var(--muted); font-size: .9375rem; }
-
-    /* ── THEME GRID (matches main page exactly) ── */
     .theme-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -225,7 +319,7 @@
     .btn-raw  { background: rgba(124,58,237,.14); color: var(--accent2); border: 1px solid rgba(124,58,237,.3); }
     .btn-copy.copied { color: var(--green); border-color: rgba(59,165,92,.4); }
 
-    /* ── DIVIDER / ERROR / FOOTER ── */
+    /* ── SHARED ── */
     .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
     .error-state {
       text-align: center; padding: 100px 24px;
@@ -245,6 +339,8 @@
       nav a.nav-link { display: none; }
       .nav-btn { display: inline-flex !important; }
       .hero-avatar { width: 96px; height: 96px; }
+      .browse-stats { flex-wrap: wrap; }
+      .browse-stat { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -258,20 +354,13 @@
     </svg>
     discord-themes
   </a>
-  <a href="../#themes"  class="nav-link">Browse</a>
-  <a href="../#authors" class="nav-link">Authors</a>
+  <a href="../#themes" class="nav-link">Browse</a>
+  <a href="./"         class="nav-link active" id="nav-authors">Authors</a>
   <a href="https://github.com/Silverfox0338/discord-themes" class="nav-link nav-btn" target="_blank" rel="noopener">GitHub</a>
 </nav>
 
-<!-- BACK BAR -->
-<div class="back-bar">
-  <a href="../" class="back-link">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-    All themes
-  </a>
-</div>
-
-<!-- MAIN (JS-populated) -->
+<!-- DYNAMIC CONTENT -->
+<div id="back-placeholder"></div>
 <div id="page-content"></div>
 
 <!-- FOOTER -->
@@ -288,8 +377,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
 <script>
-const GH_AVATAR_LG = (id) => `https://avatars.githubusercontent.com/u/${id}?s=200`;
-const GH_AVATAR_SM = (id) => `https://avatars.githubusercontent.com/u/${id}?s=80`;
+const GH_AVATAR = (id, size) => `https://avatars.githubusercontent.com/u/${id}?s=${size || 80}`;
 
 let THEMES  = [];
 let AUTHORS = {};
@@ -306,18 +394,82 @@ function getRawUrl(blobUrl) {
 
 const GH_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`;
 
-function buildCard(t) {
+/* ─── BROWSE ─────────────────────────────── */
+
+function buildBrowseCard(name, a, themeCount) {
+  const profileUrl = `./?name=${encodeURIComponent(name)}`;
+  const ghUrl      = `https://github.com/${esc(a.github)}`;
+  return `
+    <div class="browse-card">
+      <div class="browse-avatar">
+        <img src="${GH_AVATAR(a.githubId, 160)}" alt="${esc(name)}" loading="lazy" />
+      </div>
+      <div class="browse-name">${esc(name)}</div>
+      <div class="browse-handle">@${esc(a.github)}</div>
+      <div class="browse-count">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+        ${themeCount} theme${themeCount !== 1 ? 's' : ''}
+      </div>
+      <div class="browse-card-links">
+        <a href="${ghUrl}" target="_blank" rel="noopener" class="card-link">${GH_ICON} GitHub</a>
+        <a href="${profileUrl}" class="card-link card-link-profile">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+          View Profile
+        </a>
+      </div>
+    </div>`;
+}
+
+async function initBrowse() {
+  document.title = 'Authors — discord-themes';
+  document.getElementById('page-desc').setAttribute('content',
+    'Browse Discord theme authors — view profiles, bios, and theme collections.'
+  );
+
+  const content = document.getElementById('page-content');
+
+  content.innerHTML = `
+    <div class="browse-hero">
+      <div class="hero-badge">Community</div>
+      <h1>Theme <span>Authors</span></h1>
+      <p>The people behind these themes — browse profiles, bios, and full theme collections.</p>
+    </div>
+    <div class="browse-stats">
+      <div class="browse-stat">
+        <div class="browse-stat-num" id="stat-authors">—</div>
+        <div class="browse-stat-label">Contributors</div>
+      </div>
+      <div class="browse-stat">
+        <div class="browse-stat-num" id="stat-themes">—</div>
+        <div class="browse-stat-label">Themes</div>
+      </div>
+    </div>
+    <hr class="divider" />
+    <div class="browse-section">
+      <div class="browse-grid" id="browse-grid"></div>
+    </div>`;
+
+  document.getElementById('stat-authors').textContent = Object.keys(AUTHORS).length;
+  document.getElementById('stat-themes').textContent  = THEMES.length;
+
+  document.getElementById('browse-grid').innerHTML = Object.entries(AUTHORS).map(([name, a]) => {
+    const count = THEMES.filter(t => t.author === name).length;
+    return buildBrowseCard(name, a, count);
+  }).join('');
+}
+
+/* ─── PROFILE ────────────────────────────── */
+
+function buildThemeCard(t) {
   const a      = AUTHORS[t.author] || {};
-  const avatar = GH_AVATAR_SM(a.githubId || 0);
-  const ghLink = `https://github.com/${a.github || t.author}`;
   const rawEsc = esc(t.raw);
   return `
     <div class="theme-card">
       <div class="card-title">${esc(t.name)}</div>
       <div class="card-desc">${esc(t.description)}</div>
       <div class="card-meta">
-        <a href="${esc(ghLink)}" target="_blank" rel="noopener" class="author-chip">
-          <div class="author-avatar"><img src="${avatar}" alt="${esc(t.author)}" loading="lazy" /></div>
+        <a href="https://github.com/${esc(a.github || t.author)}" target="_blank" rel="noopener" class="author-chip">
+          <div class="author-avatar"><img src="${GH_AVATAR(a.githubId, 40)}" alt="${esc(t.author)}" loading="lazy" /></div>
           ${esc(t.author)}
         </a>
         <span class="version-tag">v${esc(t.version)}</span>
@@ -353,87 +505,12 @@ function renderError(msg) {
     <div class="error-state">
       <h2>Author not found</h2>
       <p>${esc(msg)}</p>
-      <a href="../" class="hero-btn hero-btn-primary" style="margin:0 auto;display:inline-flex;">← Back to Catalog</a>
+      <a href="./" class="hero-btn hero-btn-primary" style="margin:0 auto;display:inline-flex;">← All Authors</a>
     </div>`;
 }
 
-function buildHeroHTML(name, author, themeCount) {
-  return `
-    <div class="author-hero">
-      <div class="hero-avatar">
-        <img src="${GH_AVATAR_LG(author.githubId)}" alt="${esc(name)}" />
-      </div>
-      <div class="hero-name">${esc(name)}</div>
-      <div class="hero-github">${GH_ICON} <span>@${esc(author.github)}</span></div>
-      <div class="hero-badge-row">
-        <span class="hero-badge">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-          ${themeCount} theme${themeCount !== 1 ? 's' : ''}
-        </span>
-      </div>
-      <div class="hero-actions">
-        <a href="https://github.com/${esc(author.github)}" target="_blank" rel="noopener" class="hero-btn hero-btn-primary">
-          ${GH_ICON} GitHub Profile
-        </a>
-        <a href="#themes" class="hero-btn hero-btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-          View Themes
-        </a>
-      </div>
-    </div>
-    <hr class="divider" />`;
-}
-
-function buildBioHTML(mdText) {
-  const stripped = mdText.replace(/^#[^\n]*\n?/, '').trim();
-  if (!stripped) return '';
-
-  marked.use({ gfm: true, breaks: false });
-  const html = marked.parse(stripped)
-    .replace(/<a /g, '<a target="_blank" rel="noopener" ');
-
-  return `
-    <div class="bio-section">
-      <div class="bio-card">
-        <div class="bio-label">About</div>
-        <div class="bio-content">${html}</div>
-      </div>
-    </div>`;
-}
-
-function buildThemesHTML(name, themes) {
-  return `
-    <hr class="divider" style="margin-top:48px;" />
-    <div class="themes-section" id="themes">
-      <div class="section-header">
-        <h2>Themes by ${esc(name)}</h2>
-        <p>${themes.length} theme${themes.length !== 1 ? 's' : ''} in the catalog</p>
-      </div>
-      <div class="theme-grid">${themes.map(buildCard).join('')}</div>
-    </div>`;
-}
-
-async function init() {
-  const params     = new URLSearchParams(location.search);
-  const authorName = params.get('name');
-
-  if (!authorName) {
-    renderError('No author specified. Check the URL.');
-    return;
-  }
-
-  let data;
-  try {
-    const res = await fetch('../themes.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    data = await res.json();
-  } catch (e) {
-    renderError('Could not load theme data — try refreshing.');
-    return;
-  }
-
-  AUTHORS = data.authors || {};
-  THEMES  = data.themes  || [];
+async function initProfile(authorName) {
+  document.getElementById('nav-authors').classList.remove('active');
 
   const matchedKey = Object.keys(AUTHORS).find(
     k => k.toLowerCase() === authorName.toLowerCase()
@@ -449,24 +526,102 @@ async function init() {
   const authorThemes = THEMES.filter(t => t.author === name);
 
   document.title = `${name} — discord-themes`;
-  document.querySelector('#page-desc').setAttribute('content',
+  document.getElementById('page-desc').setAttribute('content',
     `${name}'s Discord themes — ${authorThemes.length} theme${authorThemes.length !== 1 ? 's' : ''} on discord-themes.`
   );
 
-  let html = buildHeroHTML(name, author, authorThemes.length);
+  document.getElementById('back-placeholder').innerHTML = `
+    <div class="back-bar">
+      <a href="./" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        All authors
+      </a>
+    </div>`;
+
+  let html = `
+    <div class="author-hero">
+      <div class="hero-avatar">
+        <img src="${GH_AVATAR(author.githubId, 200)}" alt="${esc(name)}" />
+      </div>
+      <div class="hero-name">${esc(name)}</div>
+      <div class="hero-github">${GH_ICON} <span>@${esc(author.github)}</span></div>
+      <div class="hero-badge-row">
+        <span class="hero-badge-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          ${authorThemes.length} theme${authorThemes.length !== 1 ? 's' : ''}
+        </span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://github.com/${esc(author.github)}" target="_blank" rel="noopener" class="hero-btn hero-btn-primary">
+          ${GH_ICON} GitHub Profile
+        </a>
+        <a href="#themes" class="hero-btn hero-btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          View Themes
+        </a>
+      </div>
+    </div>
+    <hr class="divider" />`;
 
   if (author.profile) {
     try {
       const rawUrl = getRawUrl(author.profile);
       const mdRes  = await fetch(rawUrl);
       if (mdRes.ok) {
-        html += buildBioHTML(await mdRes.text());
+        const stripped = (await mdRes.text()).replace(/^#[^\n]*\n?/, '').trim();
+        if (stripped) {
+          marked.use({ gfm: true, breaks: false });
+          const mdHtml = marked.parse(stripped)
+            .replace(/<a /g, '<a target="_blank" rel="noopener" ');
+          html += `
+            <div class="bio-section">
+              <div class="bio-card">
+                <div class="bio-label">About</div>
+                <div class="bio-content">${mdHtml}</div>
+              </div>
+            </div>`;
+        }
       }
-    } catch (_) { /* bio unavailable — continue */ }
+    } catch (_) { /* bio unavailable */ }
   }
 
-  html += buildThemesHTML(name, authorThemes);
+  html += `
+    <hr class="divider" style="margin-top:48px;" />
+    <div class="themes-section" id="themes">
+      <div class="section-header">
+        <h2>Themes by ${esc(name)}</h2>
+        <p>${authorThemes.length} theme${authorThemes.length !== 1 ? 's' : ''} in the catalog</p>
+      </div>
+      <div class="theme-grid">${authorThemes.map(buildThemeCard).join('')}</div>
+    </div>`;
+
   document.getElementById('page-content').innerHTML = html;
+}
+
+/* ─── INIT ───────────────────────────────── */
+
+async function init() {
+  try {
+    const res = await fetch('../themes.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    AUTHORS = data.authors || {};
+    THEMES  = data.themes  || [];
+  } catch (e) {
+    document.getElementById('page-content').innerHTML = `
+      <div class="error-state">
+        <h2>Failed to load</h2>
+        <p>Could not load theme data — try refreshing.</p>
+      </div>`;
+    return;
+  }
+
+  const name = new URLSearchParams(location.search).get('name');
+  if (name) {
+    await initProfile(name);
+  } else {
+    await initBrowse();
+  }
 }
 
 init();

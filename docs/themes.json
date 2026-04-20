@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-20T02:15:12.3414905+00:00",
+  "generated": "2026-04-20T10:02:19.0042191+00:00",
   "authors": {
     "8Bit": {
       "github": "8-bitStudio",
@@ -188,7 +188,7 @@
     {
       "name": "Beastars - Moonlit Wolf",
       "author": "Silverfox0338",
-      "version": "8.0.7",
+      "version": "8.0.8",
       "description": "Beastars-themed Discord - Moonlit Legoshi",
       "raw": "https://raw.githubusercontent.com/Silverfox0338/discord-themes/main/Silver%20Themes/Legoshi/legoshi-theme.css"
     },

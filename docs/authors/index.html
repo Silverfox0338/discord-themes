@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Author — discord-themes</title>
+  <meta name="description" content="" id="page-desc" />
+  <style>
+    :root {
+      --bg:      #08060e;
+      --surface: #0f0b1c;
+      --card:    #160f26;
+      --border:  #2a1f45;
+      --accent:  #7c3aed;
+      --accent2: #c084fc;
+      --text:    #ede8f8;
+      --muted:   #9b8ab5;
+      --green:   #3ba55c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,6,14,.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 24px; height: 56px;
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1rem; color: var(--text);
+      margin-right: auto; display: flex; align-items: center; gap: 8px; text-decoration: none;
+    }
+    .nav-logo svg { width: 22px; height: 22px; }
+    nav a.nav-link {
+      color: var(--muted); text-decoration: none; font-size: .875rem;
+      padding: 6px 12px; border-radius: 6px; transition: color .15s, background .15s;
+    }
+    nav a.nav-link:hover { color: var(--text); background: var(--card); }
+    .nav-btn {
+      background: var(--accent); color: #fff !important;
+      border-radius: 6px; padding: 6px 14px !important;
+      font-weight: 600; transition: opacity .15s !important;
+    }
+    .nav-btn:hover { opacity: .85; }
+
+    /* ── BACK BAR ── */
+    .back-bar {
+      padding: 10px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); text-decoration: none;
+      font-size: .8125rem; transition: color .15s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* ── AUTHOR HERO ── */
+    .author-hero {
+      padding: 64px 24px 56px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.20) 0%, transparent 70%);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .author-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%237c3aed' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: 0 0 40px rgba(124,58,237,.35), 0 0 80px rgba(124,58,237,.12);
+      display: inline-block;
+      margin-bottom: 22px;
+      position: relative; z-index: 1;
+    }
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-name {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800; letter-spacing: -.02em;
+      margin-bottom: 6px;
+      position: relative; z-index: 1;
+    }
+    .hero-github {
+      color: var(--muted); font-size: .9375rem;
+      margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      position: relative; z-index: 1;
+    }
+    .hero-badge-row {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 26px;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 14px; border-radius: 100px;
+      font-size: .8125rem; font-weight: 600;
+      background: rgba(124,58,237,.18);
+      border: 1px solid rgba(124,58,237,.35);
+      color: var(--accent2);
+    }
+    .hero-actions {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 20px; border-radius: 7px;
+      font-size: .875rem; font-weight: 600;
+      text-decoration: none; transition: opacity .15s, border-color .15s, color .15s;
+    }
+    .hero-btn-primary { background: var(--accent); color: #fff; }
+    .hero-btn-primary:hover { opacity: .85; }
+    .hero-btn-secondary {
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .hero-btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── BIO ── */
+    .bio-section { max-width: 820px; margin: 0 auto; padding: 48px 24px 0; }
+    .bio-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+    }
+    .bio-label {
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 18px;
+    }
+    .bio-content { line-height: 1.7; color: var(--text); }
+    .bio-content > *:first-child { margin-top: 0 !important; }
+    .bio-content h2 {
+      font-size: 1.0625rem; font-weight: 700;
+      margin: 28px 0 12px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .bio-content h3 { font-size: 1rem; font-weight: 600; margin: 20px 0 8px; color: var(--accent2); }
+    .bio-content p { font-size: .9375rem; margin-bottom: 12px; }
+    .bio-content p:last-child { margin-bottom: 0; }
+    .bio-content a { color: var(--accent2); text-decoration: none; }
+    .bio-content a:hover { text-decoration: underline; }
+    .bio-content ul, .bio-content ol { padding-left: 20px; margin-bottom: 12px; }
+    .bio-content li { font-size: .9375rem; margin-bottom: 5px; color: var(--muted); }
+    .bio-content li a { color: var(--accent2); }
+    .bio-content strong { color: var(--text); font-weight: 600; }
+    .bio-content em { color: var(--muted); font-style: italic; }
+    .bio-content code {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px; padding: 1px 6px;
+      font-size: .8125rem; font-family: 'Consolas', 'Courier New', monospace;
+      color: var(--accent2);
+    }
+    .bio-content table {
+      width: 100%; border-collapse: collapse;
+      margin: 4px 0 16px; font-size: .875rem; overflow: hidden; border-radius: 6px;
+    }
+    .bio-content th {
+      background: var(--surface); color: var(--muted);
+      font-weight: 600; text-align: left;
+      padding: 8px 12px; border: 1px solid var(--border);
+      font-size: .8125rem; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .bio-content td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; }
+    .bio-content tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    .bio-content hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+    /* ── THEMES SECTION ── */
+    .themes-section { max-width: 1200px; margin: 0 auto; padding: 48px 24px 72px; }
+    .section-header { margin-bottom: 28px; }
+    .section-header h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .section-header p { color: var(--muted); font-size: .9375rem; }
+
+    /* ── THEME GRID (matches main page exactly) ── */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .theme-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: border-color .15s, transform .12s;
+    }
+    .theme-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-title { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+    .card-desc { font-size: .875rem; color: var(--muted); line-height: 1.55; flex: 1; }
+    .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .author-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 3px 10px 3px 4px;
+      font-size: .8125rem; color: var(--text); text-decoration: none;
+      transition: border-color .15s;
+    }
+    .author-chip:hover { border-color: var(--accent2); }
+    .author-avatar {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--border); overflow: hidden; flex-shrink: 0;
+    }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .version-tag { color: var(--muted); font-size: .75rem; margin-left: auto; }
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .action-btn {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 8px 12px; border-radius: 6px;
+      font-size: .8125rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: opacity .15s; white-space: nowrap;
+    }
+    .action-btn:hover { opacity: .8; }
+    .btn-copy { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-raw  { background: rgba(124,58,237,.14); color: var(--accent2); border: 1px solid rgba(124,58,237,.3); }
+    .btn-copy.copied { color: var(--green); border-color: rgba(59,165,92,.4); }
+
+    /* ── DIVIDER / ERROR / FOOTER ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    .error-state {
+      text-align: center; padding: 100px 24px;
+      max-width: 480px; margin: 0 auto;
+    }
+    .error-state h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+    .error-state p { color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px; text-align: center;
+      color: var(--muted); font-size: .875rem;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      nav a.nav-link { display: none; }
+      .nav-btn { display: inline-flex !important; }
+      .hero-avatar { width: 96px; height: 96px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60.105 4.898A58.549 58.549 0 0 0 45.865.408a.22.22 0 0 0-.231.11 40.784 40.784 0 0 0-1.8 3.697c-5.456-.817-10.886-.817-16.23 0a37.36 37.36 0 0 0-1.827-3.697.228.228 0 0 0-.231-.11 58.388 58.388 0 0 0-14.24 4.49.207.207 0 0 0-.095.082C1.578 18.73-.944 32.144.292 45.39a.244.244 0 0 0 .093.167c5.981 4.394 11.776 7.066 17.467 8.83a.23.23 0 0 0 .249-.082 42.08 42.08 0 0 0 3.627-5.9.225.225 0 0 0-.123-.312 38.772 38.772 0 0 1-5.539-2.64.228.228 0 0 1-.022-.378 31.269 31.269 0 0 0 1.1-.862.22.22 0 0 1 .23-.031c11.619 5.304 24.198 5.304 35.68 0a.219.219 0 0 1 .232.028c.356.293.728.586 1.103.865a.228.228 0 0 1-.02.378 36.384 36.384 0 0 1-5.54 2.637.227.227 0 0 0-.12.315 47.249 47.249 0 0 0 3.623 5.897.225.225 0 0 0 .249.084c5.715-1.765 11.51-4.436 17.492-8.83a.228.228 0 0 0 .092-.164c1.46-15.115-2.441-28.42-10.333-40.412a.18.18 0 0 0-.092-.084z" fill="#c084fc"/>
+    </svg>
+    discord-themes
+  </a>
+  <a href="../#themes"  class="nav-link">Browse</a>
+  <a href="../#authors" class="nav-link">Authors</a>
+  <a href="https://github.com/Silverfox0338/discord-themes" class="nav-link nav-btn" target="_blank" rel="noopener">GitHub</a>
+</nav>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="../" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    All themes
+  </a>
+</div>
+
+<!-- MAIN (JS-populated) -->
+<div id="page-content"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <a href="https://github.com/Silverfox0338/discord-themes" target="_blank" rel="noopener">discord-themes</a>
+    — a community collection. Not affiliated with Discord Inc.
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Silverfox0338/discord-themes/wiki" target="_blank" rel="noopener">Wiki</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Silverfox0338/discord-themes/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
+<script>
+const GH_AVATAR_LG = (id) => `https://avatars.githubusercontent.com/u/${id}?s=200`;
+const GH_AVATAR_SM = (id) => `https://avatars.githubusercontent.com/u/${id}?s=80`;
+
+let THEMES  = [];
+let AUTHORS = {};
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function getRawUrl(blobUrl) {
+  return blobUrl
+    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+    .replace('/blob/', '/');
+}
+
+const GH_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`;
+
+function buildCard(t) {
+  const a      = AUTHORS[t.author] || {};
+  const avatar = GH_AVATAR_SM(a.githubId || 0);
+  const ghLink = `https://github.com/${a.github || t.author}`;
+  const rawEsc = esc(t.raw);
+  return `
+    <div class="theme-card">
+      <div class="card-title">${esc(t.name)}</div>
+      <div class="card-desc">${esc(t.description)}</div>
+      <div class="card-meta">
+        <a href="${esc(ghLink)}" target="_blank" rel="noopener" class="author-chip">
+          <div class="author-avatar"><img src="${avatar}" alt="${esc(t.author)}" loading="lazy" /></div>
+          ${esc(t.author)}
+        </a>
+        <span class="version-tag">v${esc(t.version)}</span>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn btn-copy" data-url="${rawEsc}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy URL
+        </button>
+        <a href="${rawEsc}" target="_blank" rel="noopener" class="action-btn btn-raw">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          Raw CSS
+        </a>
+      </div>
+    </div>`;
+}
+
+document.getElementById('page-content').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-copy');
+  if (!btn) return;
+  navigator.clipboard.writeText(btn.dataset.url).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy URL`;
+    }, 2000);
+  });
+});
+
+function renderError(msg) {
+  document.getElementById('page-content').innerHTML = `
+    <div class="error-state">
+      <h2>Author not found</h2>
+      <p>${esc(msg)}</p>
+      <a href="../" class="hero-btn hero-btn-primary" style="margin:0 auto;display:inline-flex;">← Back to Catalog</a>
+    </div>`;
+}
+
+function buildHeroHTML(name, author, themeCount) {
+  return `
+    <div class="author-hero">
+      <div class="hero-avatar">
+        <img src="${GH_AVATAR_LG(author.githubId)}" alt="${esc(name)}" />
+      </div>
+      <div class="hero-name">${esc(name)}</div>
+      <div class="hero-github">${GH_ICON} <span>@${esc(author.github)}</span></div>
+      <div class="hero-badge-row">
+        <span class="hero-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          ${themeCount} theme${themeCount !== 1 ? 's' : ''}
+        </span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://github.com/${esc(author.github)}" target="_blank" rel="noopener" class="hero-btn hero-btn-primary">
+          ${GH_ICON} GitHub Profile
+        </a>
+        <a href="#themes" class="hero-btn hero-btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          View Themes
+        </a>
+      </div>
+    </div>
+    <hr class="divider" />`;
+}
+
+function buildBioHTML(mdText) {
+  const stripped = mdText.replace(/^#[^\n]*\n?/, '').trim();
+  if (!stripped) return '';
+
+  marked.use({ gfm: true, breaks: false });
+  const html = marked.parse(stripped)
+    .replace(/<a /g, '<a target="_blank" rel="noopener" ');
+
+  return `
+    <div class="bio-section">
+      <div class="bio-card">
+        <div class="bio-label">About</div>
+        <div class="bio-content">${html}</div>
+      </div>
+    </div>`;
+}
+
+function buildThemesHTML(name, themes) {
+  return `
+    <hr class="divider" style="margin-top:48px;" />
+    <div class="themes-section" id="themes">
+      <div class="section-header">
+        <h2>Themes by ${esc(name)}</h2>
+        <p>${themes.length} theme${themes.length !== 1 ? 's' : ''} in the catalog</p>
+      </div>
+      <div class="theme-grid">${themes.map(buildCard).join('')}</div>
+    </div>`;
+}
+
+async function init() {
+  const params     = new URLSearchParams(location.search);
+  const authorName = params.get('name');
+
+  if (!authorName) {
+    renderError('No author specified. Check the URL.');
+    return;
+  }
+
+  let data;
+  try {
+    const res = await fetch('../themes.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+  } catch (e) {
+    renderError('Could not load theme data — try refreshing.');
+    return;
+  }
+
+  AUTHORS = data.authors || {};
+  THEMES  = data.themes  || [];
+
+  const matchedKey = Object.keys(AUTHORS).find(
+    k => k.toLowerCase() === authorName.toLowerCase()
+  );
+  const author = matchedKey ? AUTHORS[matchedKey] : null;
+
+  if (!author) {
+    renderError(`No author named "${authorName}" was found.`);
+    return;
+  }
+
+  const name         = matchedKey;
+  const authorThemes = THEMES.filter(t => t.author === name);
+
+  document.title = `${name} — discord-themes`;
+  document.querySelector('#page-desc').setAttribute('content',
+    `${name}'s Discord themes — ${authorThemes.length} theme${authorThemes.length !== 1 ? 's' : ''} on discord-themes.`
+  );
+
+  let html = buildHeroHTML(name, author, authorThemes.length);
+
+  if (author.profile) {
+    try {
+      const rawUrl = getRawUrl(author.profile);
+      const mdRes  = await fetch(rawUrl);
+      if (mdRes.ok) {
+        html += buildBioHTML(await mdRes.text());
+      }
+    } catch (_) { /* bio unavailable — continue */ }
+  }
+
+  html += buildThemesHTML(name, authorThemes);
+  document.getElementById('page-content').innerHTML = html;
+}
+
+init();
+</script>
+</body>
+</html>
